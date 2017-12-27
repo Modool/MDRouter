@@ -1,12 +1,12 @@
 //
-//  MDRouter.m
+//  MDRouterSet.m
 //  MDRouter
 //
 //  Created by Jave on 2017/12/15.
 //  Copyright © 2017年 markejave. All rights reserved.
 //
 
-#import "MDRouter.h"
+#import "MDRouterSet.h"
 #import "MDRouterAdapter+Private.h"
 
 #import "MDRouterConstants.h"
@@ -14,12 +14,16 @@
 
 NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domain";
 
-@interface MDRouter ()
+@interface MDRouterSet ()
 
 @end
 
-@implementation MDRouter
+@implementation MDRouterSet
 @dynamic baseURL;
+
++ (instancetype)router;{
+    return [self routerWithBaseURL:nil];
+}
 
 + (instancetype)routerWithBaseURL:(NSURL *)baseURL;{
     return [[self alloc] initWithBaseURL:baseURL];
@@ -44,37 +48,37 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
 
 - (void)setValidSchemes:(NSSet<NSString *> *)validSchemes{
     if (_validSchemes != validSchemes) {
-        _validSchemes = [self invalidSchemes] ? [[self invalidSchemes] setByMinusSet:validSchemes] : validSchemes;
+        _validSchemes = [self invalidSchemes] ? [validSchemes setByMinusSet:[self invalidSchemes]] : validSchemes;
     }
 }
 
 - (void)setInvalidSchemes:(NSSet<NSString *> *)invalidSchemes{
     if (_invalidSchemes != invalidSchemes) {
-        _invalidSchemes = [self validSchemes] ? [[self validSchemes] setByMinusSet:invalidSchemes]: invalidSchemes;
+        _invalidSchemes = [self validSchemes] ? [invalidSchemes setByMinusSet:[self validSchemes]]: invalidSchemes;
     }
 }
 
 - (void)setValidHosts:(NSSet<NSString *> *)validHosts{
     if (_validHosts != validHosts) {
-        _validHosts = [self invalidHosts] ? [[self validHosts] setByMinusSet:validHosts]: validHosts;
+        _validHosts = [self invalidHosts] ? [validHosts setByMinusSet:[self validHosts]]: validHosts;
     }
 }
 
 - (void)setInvalidHosts:(NSSet<NSString *> *)invalidHosts{
     if (_invalidHosts != invalidHosts) {
-        _invalidHosts = [self validHosts] ? [[self validHosts] setByMinusSet:invalidHosts]: invalidHosts;
+        _invalidHosts = [self validHosts] ? [invalidHosts setByMinusSet:[self validHosts]]: invalidHosts;
     }
 }
 
 - (void)setValidPorts:(NSSet<NSNumber *> *)validPorts{
     if (_validPorts != validPorts) {
-        _validPorts = [self invalidPorts] ? [[self validPorts] setByMinusSet:validPorts]: validPorts;
+        _validPorts = [self invalidPorts] ? [validPorts setByMinusSet:[self validPorts]]: validPorts;
     }
 }
 
 - (void)setInvalidPorts:(NSSet<NSNumber *> *)invalidPorts{
     if (_invalidPorts != invalidPorts) {
-        _invalidPorts = [self validPorts] ? [[self validPorts] setByMinusSet:invalidPorts]: invalidPorts;
+        _invalidPorts = [self validPorts] ? [invalidPorts setByMinusSet:[self validPorts]]: invalidPorts;
     }
 }
 
@@ -100,7 +104,7 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
     arguments = [self _argumentsWithURL:URL baseArguments:arguments];
     
     BOOL state = [super openURL:URL arguments:arguments output:output error:error];
-    if (!state && error) {
+    if (!state && error && *error == nil) {
         NSMutableDictionary *userInfo = [*error ? @{NSUnderlyingErrorKey: *error} : @{} mutableCopy];
         userInfo[NSLocalizedDescriptionKey] = @"无效的跳转链接";
         

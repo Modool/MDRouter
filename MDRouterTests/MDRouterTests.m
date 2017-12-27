@@ -10,15 +10,6 @@
 #import <UIKit/UIKit.h>
 
 #import "MDRouter.h"
-#import "MDRouterSimpleAdapter.h"
-#import "MDRouterWebsiteAdapter.h"
-#import "MDRouterUndirectionalAdapter.h"
-
-#import "MDRouterSampleSolution.h"
-#import "MDRouterAsynchronizeSampleSolution.h"
-#import "UIViewController+MDRouterSolution.h"
-
-#import "MDRouterConstants.h"
 
 NSString * const MDRouterTestRootURLString = @"https://www.github.com/Modool";
 NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resources/blob/master/images/social/github_1000.png?raw=true";
@@ -33,9 +24,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 @interface MDRouterTests : XCTestCase
 
-//    http://tieba.baidu.com/p/5488009488?red_tag=r2448777939
-
-@property (nonatomic, strong) MDRouter *router;
+@property (nonatomic, strong) MDRouterSet *router;
 
 @end
 
@@ -45,12 +34,114 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
-    self.router = [MDRouter routerWithBaseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    self.router = [MDRouterSet router];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testFilterSchemes {
+    
+    MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
+    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        return @1;
+    }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    
+    
+    [[self router] addAdapter:websiteAdapter];
+    
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    
+    XCTAssertTrue(state);
+    
+    self.router.invalidSchemes = [NSSet setWithObject:@"https"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertFalse(state);
+    
+    self.router.invalidSchemes = [NSSet setWithObject:@"http"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertTrue(state);
+    
+    self.router.invalidSchemes = nil;
+    self.router.validSchemes = [NSSet setWithObject:@"https"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertTrue(state);
+    
+    self.router.validSchemes = [NSSet setWithObject:@"http"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertFalse(state);
+    
+    [[self router] removeAdapter:websiteAdapter];
+}
+
+- (void)testFilterHosts {
+    MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
+    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        return @1;
+    }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    
+    
+    [[self router] addAdapter:websiteAdapter];
+    
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    
+    XCTAssertTrue(state);
+    
+    self.router.invalidHosts = [NSSet setWithObject:@"www.github.com"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertFalse(state);
+    
+    self.router.invalidHosts = [NSSet setWithObject:@"www.baidu.com"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertTrue(state);
+    
+    self.router.invalidHosts = nil;
+    self.router.validHosts = [NSSet setWithObject:@"www.github.com"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertTrue(state);
+    
+    self.router.validSchemes = [NSSet setWithObject:@"www.baidu.com"];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertFalse(state);
+    
+    [[self router] removeAdapter:websiteAdapter];
+}
+
+- (void)testFilterPorts {
+    MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
+    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        return @1;
+    }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    
+    
+    [[self router] addAdapter:websiteAdapter];
+    
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    
+    XCTAssertTrue(state);
+    
+    self.router.invalidPorts = [NSSet setWithObject:@(8080)];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertTrue(state);
+    
+    self.router.invalidHosts = nil;
+    self.router.validHosts = [NSSet setWithObject:@(8080)];
+    
+    state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
+    XCTAssertFalse(state);
+    
+    [[self router] removeAdapter:websiteAdapter];
 }
 
 - (void)testWebsiteAdapter {
@@ -63,14 +154,12 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [[self router] addAdapter:websiteAdapter];
     
     id output = nil;
-    NSError *error = nil;
     
-    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:&error];
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:NULL];
     
     [[self router] removeAdapter:websiteAdapter];
     
     XCTAssertTrue(state);
-    XCTAssertNil(error);
     XCTAssertEqualObjects(output, @1);
 }
 
@@ -82,14 +171,12 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [[self router] addAdapter:undirectionalAdapter];
     
     id output = nil;
-    NSError *error = nil;
     
-    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:&error];
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:NULL];
     
     [[self router] removeAdapter:undirectionalAdapter];
     
     XCTAssertTrue(state);
-    XCTAssertNil(error);
     XCTAssertEqualObjects(output, @1);
 }
 
@@ -101,15 +188,29 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     id output = nil;
-    NSError *error = nil;
-    
-    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:&error];
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:NULL];
     
     [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state);
-    XCTAssertNil(error);
     XCTAssertEqualObjects(output, @1);
+}
+
+- (void)testRouterErrorOuput {
+    MDRouterSampleSolution *solution = [MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        *error = [NSError errorWithDomain:MDRouterErrorDomain code:10000 userInfo:nil];
+        return nil;
+    }];
+    
+    [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    
+    NSError *error = nil;
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:&error];
+    
+    [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    
+    XCTAssertFalse(state);
+    XCTAssertTrue([error code] == 10000);
 }
 
 - (void)testAsynchronizeSampleSolution {
@@ -127,16 +228,11 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     
     [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
-    id output = nil;
-    NSError *error = nil;
-    
-    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:&error];
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
     
     [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state);
-    XCTAssertNil(error);
-    XCTAssertNil(output);
     
     [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -153,8 +249,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     
     [[self router] removeSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
-    XCTAssertTrue(state);
-    XCTAssertFalse([error code] != MDRouterErrorCodeNoVisibleNavigationController);
+    XCTAssertTrue(state || [error code] == MDRouterErrorCodeNoVisibleNavigationController);
 }
 
 - (void)testPresentViewControllerSolution {
@@ -167,8 +262,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     
     [[self router] removeSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
-    XCTAssertTrue(state);
-    XCTAssertFalse([error code] != MDRouterErrorCodeNoVisibleViewController);
+    XCTAssertTrue(state || [error code] == MDRouterErrorCodeNoVisibleViewController || [error code] == MDRouterErrorCodePresentedViewControllerExsit);
 }
 
 - (void)testPerformanceExample {

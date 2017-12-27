@@ -78,11 +78,13 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
     if (!solutionItems || ![solutionItems count]) return NO;
     
     if ([solutionItems count] == 1) {
-        id result = [[solutionItems firstObject] invokeWithArguments:arguments error:error];
+        NSError *innerError = nil;
+        id result = [[solutionItems firstObject] invokeWithArguments:arguments error:&innerError];
         
         if (output) *output = result;
+        if (innerError && error) *error = innerError;
         
-        return YES;
+        return innerError == nil;
     }
     
     NSMutableArray *results = [NSMutableArray new];
@@ -197,6 +199,8 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
 
 - (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
     NSParameterAssert(URL);
+    
+    if (![self _validateURL:URL]) return NO;
     
     BOOL state = [self _handleSolutionWithURL:URL arguments:arguments output:output error:error];
     if (state) return YES;
