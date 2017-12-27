@@ -12,7 +12,24 @@
 
 #import "NSError+MDRouter.h"
 
+@interface MDRouterUndirectionalAdapter ()
+
+@property (nonatomic, copy) id (^block)(NSDictionary *arguments, NSError **error);
+
+@end
+
 @implementation MDRouterUndirectionalAdapter
+
++ (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    return [[self alloc] initWithBlock:block];
+}
+
+- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    if (self = [super initWithBaseURL:nil]) {
+        self.block = block;
+    }
+    return self;
+}
 
 #pragma mark - private
 
@@ -21,6 +38,12 @@
 }
 
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
+    if ([self block]) {
+        id result = self.block(arguments, error);
+        if (output) *output = result;
+        return YES;
+    }
+    
     if (error) {
         *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeUnredirectURL userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to redirect URL: %@", URL]} underlyingError:*error];
     }

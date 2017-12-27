@@ -44,11 +44,11 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
     return [[self mutableAdapters] copy];
 }
 
-- (id<MDRouterAdapter>)subAdapterWithURL:(NSURL *)URL{
+- (id<MDRouterAdapter>)adapterWithBaseURL:(NSURL *)baseURL{
     if (![[self adapters] ?: @[] count]) return nil;
     
     for (MDRouterAdapter *adapter in [self adapters]) {
-        if ([self _validateURL:URL]) return adapter;
+        if ([adapter _validateURL:baseURL]) return adapter;
     }
     return nil;
 }
@@ -56,11 +56,21 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
 #pragma mark - private
 
 - (BOOL)_validateURL:(NSURL *)URL;{
-    if (!URL) return YES;
     if (![[URL scheme] isEqualToString:[[self baseURL] scheme]]) return NO;
     if (![[URL host] isEqualToString:[[self baseURL] host]]) return NO;
     
-    return [[[self baseURL] path] hasPrefix:[URL path]];
+    NSArray<NSString *> *basePathComponents = [[[self baseURL] path] componentsSeparatedByString:@"/"];
+    NSArray<NSString *> *pathComponents = [[URL path] componentsSeparatedByString:@"/"];
+    
+    if ([pathComponents count] > [basePathComponents count]) return NO;
+    
+    for (NSUInteger index = 0; index < [pathComponents count]; index++) {
+        NSString *component = pathComponents[index];
+        
+        if (![basePathComponents[index] isEqualToString:component]) return NO;
+    }
+    
+    return YES;
 }
 
 - (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
@@ -106,11 +116,11 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:YES];
     NSArray<NSURLQueryItem *> *queryItems = [URLComponents queryItems];
 
-    NSMutableDictionary *resultArguments = [baseArguments mutableCopy];
+    NSMutableDictionary *resultArguments = [baseArguments ?: @{} mutableCopy];
     for (NSURLQueryItem *queryItem in queryItems) {
         id value = [queryItem value];
         if ([value isKindOfClass:[NSString class]]) {
-            value = [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:MDRouterAdapterPercentEscapesString]] ?: value;
+            value = [value stringByRemovingPercentEncoding] ?: value;
             if (value) {
                 NSError *error = nil;
                 id JSON = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
@@ -138,29 +148,25 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
     [[self mutableAdapters] removeObject:adapter];
 }
 
-- (void)addSolution:(id<MDRouterSolution>)solution;{
-    NSParameterAssert(solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
+- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
+    NSParameterAssert(baseURL && solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
     
-    NSURL *URL = [solution conformsToProtocol:@protocol(MDRouterInstanceSolution)] ? [(id<MDRouterInstanceSolution>)solution URL] : [[(id<MDRouterClassSolution>)solution class] URL];
-    
-    id<MDRouterAdapter> adapter = [self subAdapterWithURL:URL];
+    id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
     if (adapter) {
-        [adapter addSolution:solution];
+        [adapter addSolution:solution baseURL:baseURL];
     } else {
-        [[self solutionContainer] addSolution:solution forURL:URL];
+        [[self solutionContainer] addSolution:solution forBaseURL:baseURL];
     }
 }
 
-- (void)removeSolution:(id<MDRouterSolution>)solution;{
-    NSParameterAssert(solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
+- (void)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
+    NSParameterAssert(baseURL && solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
     
-    NSURL *URL = [solution conformsToProtocol:@protocol(MDRouterInstanceSolution)] ? [(id<MDRouterInstanceSolution>)solution URL] : [[(id<MDRouterClassSolution>)solution class] URL];
-    
-    id<MDRouterAdapter> adapter = [self subAdapterWithURL:URL];
+    id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
     if (adapter) {
-        [adapter removeSolution:solution];
+        [adapter removeSolution:solution baseURL:baseURL];
     } else {
-        [[self solutionContainer] removeSolution:solution forURL:URL];
+        [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
     }
 }
 
@@ -191,8 +197,6 @@ NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
 
 - (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
     NSParameterAssert(URL);
-    
-    if (![self canOpenURL:URL]) return NO;
     
     BOOL state = [self _handleSolutionWithURL:URL arguments:arguments output:output error:error];
     if (state) return YES;

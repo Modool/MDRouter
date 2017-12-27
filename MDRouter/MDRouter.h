@@ -29,25 +29,35 @@ extern NSString * const MDRouterErrorDomain;
 @class BFCBusModel;
 @interface MDRouter : MDRouterAdapter
 
-// Default is nil
-@property (nonatomic, copy, readonly) NSString *scheme;
+@property (nonatomic, copy, readonly) NSURL *baseURL NS_UNAVAILABLE;
 
 // Default is nil
-@property (nonatomic, copy, readonly) NSString *host;
+@property (nonatomic, copy) NSSet<NSString *> *validSchemes;
+@property (nonatomic, copy) NSSet<NSString *> *invalidSchemes;
 
 // Default is nil
-@property (nonatomic, copy, readonly) NSString *port;
+@property (nonatomic, copy) NSSet<NSString *> *validHosts;
+@property (nonatomic, copy) NSSet<NSString *> *invalidHosts;
+
+// Default is nil
+@property (nonatomic, copy) NSSet<NSNumber *> *validPorts;
+@property (nonatomic, copy) NSSet<NSNumber *> *invalidPorts;
+
++ (instancetype)adapter NS_UNAVAILABLE;
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL NS_UNAVAILABLE;
+
++ (instancetype)routerWithBaseURL:(NSURL *)baseURL;
 
 @end
 
-#define MDRouterSolutionBind(solution)    [[MDRouter defaultRouter] addSolution:solution]
+#define MDRouterSolutionBind(solution, baseURL)    [[MDRouter defaultRouter] addSolution:solution baseURL:baseURL]
 
-#define MDRouterSolutionClassBind(cls)    @implementation cls (MDRouterSolution)            \
-                                                + (void)load{                                       \
-                                                    static dispatch_once_t onceToken;               \
-                                                    dispatch_once(&onceToken, ^{                    \
-                                                        MDRouterSolutionBind((id)[cls class]);  \
-                                                    });                                             \
-                                                }                                                   \
-                                              @end
+#define MDRouterSolutionClassBind(cls, baseURL)     @implementation cls (MDRouterSolution)                  \
+                                                    + (void)load{                                           \
+                                                        static dispatch_once_t onceToken;                   \
+                                                        dispatch_once(&onceToken, ^{                        \
+                                                            MDRouterSolutionBind((id)[cls class], baseURL); \
+                                                        });                                                 \
+                                                    }                                                       \
+                                                    @end
 

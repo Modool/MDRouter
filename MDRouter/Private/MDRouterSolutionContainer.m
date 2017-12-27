@@ -26,35 +26,35 @@
 - (NSArray<MDRouterSolutionItem *> *)solutionItemsWithURL:(NSURL *)URL;{
     NSMutableArray<MDRouterSolutionItem *> *solutions = [NSMutableArray new];
     for (MDRouterSolutionItem *item in [[self solutionItems] copy]) {
-        if ([item validatURL:URL]) {
+        if ([item validatBaseURL:URL]) {
             [solutions addObject:item];
         }
     }
     return solutions;
 }
 
-- (MDRouterSolutionItem *)solutionItemWithSolution:(id<MDRouterSolution>)solution URL:(NSURL *)URL;{
+- (MDRouterSolutionItem *)solutionItemWithSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
     for (MDRouterSolutionItem *item in [[self solutionItems] copy]) {
-        if ([item solution] == solution && [item validatURL:URL]) {
+        if ([item solution] == solution && [item validatBaseURL:baseURL]) {
             return item;
         }
     }
     return nil;
 }
 
-- (BOOL)addSolution:(id<MDRouterSolution>)solution forURL:(NSURL *)URL;{
-    NSParameterAssert(solution && URL);
-    NSParameterAssert(![self solutionItemWithSolution:solution URL:URL]);
+- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;{
+    NSParameterAssert(solution && baseURL);
+    NSParameterAssert(![self solutionItemWithSolution:solution baseURL:baseURL]);
     
-    [[self solutionItems] addObject:[MDRouterSolutionItem solutionItemWithURL:URL solution:solution]];
+    [[self solutionItems] addObject:[MDRouterSolutionItem solutionItemWithBaseURL:baseURL solution:solution]];
     
     return YES;
 }
 
-- (BOOL)removeSolution:(id<MDRouterSolution>)solution forURL:(NSURL *)URL;{
-    NSParameterAssert(solution && URL);
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;{
+    NSParameterAssert(solution && baseURL);
     
-    MDRouterSolutionItem *item = [self solutionItemWithSolution:solution URL:URL];
+    MDRouterSolutionItem *item = [self solutionItemWithSolution:solution baseURL:baseURL];
     NSParameterAssert(item);
     
     [[self solutionItems] removeObject:item];

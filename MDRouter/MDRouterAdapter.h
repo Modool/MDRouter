@@ -16,8 +16,8 @@
 - (void)addAdapter:(id<MDRouterAdapter>)adapter;
 - (void)removeAdapter:(id<MDRouterAdapter>)adapter;
 
-- (void)addSolution:(id<MDRouterSolution>)solution;
-- (void)removeSolution:(id<MDRouterSolution>)solution;
+- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
+- (void)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
 
 - (BOOL)canOpenURL:(NSURL *)URL;
 

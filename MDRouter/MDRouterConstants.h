@@ -17,4 +17,7 @@ typedef NS_ENUM(NSUInteger, MDRouterErrorCode) {
     MDRouterErrorCodeAccessPermission,
     MDRouterErrorCodeNoHandler,
     MDRouterErrorCodeHandleFailed,
+    MDRouterErrorCodeNoVisibleNavigationController,
+    MDRouterErrorCodeNoVisibleViewController,
+    MDRouterErrorCodePresentedViewControllerExsit,
 };

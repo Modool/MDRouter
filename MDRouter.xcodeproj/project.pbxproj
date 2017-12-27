@@ -13,22 +13,31 @@
 		083A34C31FE43AF8002554DE /* MDRouterWebsiteAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34B11FE43AF7002554DE /* MDRouterWebsiteAdapter.m */; };
 		083A34C41FE43AF8002554DE /* MDRouterAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34B21FE43AF7002554DE /* MDRouterAdapter.h */; };
 		083A34C51FE43AF8002554DE /* MDRouterUndirectionalAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34B31FE43AF7002554DE /* MDRouterUndirectionalAdapter.m */; };
-		083A34C61FE43AF8002554DE /* MDRouterSolutionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34B41FE43AF7002554DE /* MDRouterSolutionItem.m */; };
 		083A34C71FE43AF8002554DE /* MDRouterAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34B51FE43AF7002554DE /* MDRouterAdapter.m */; };
-		083A34C81FE43AF8002554DE /* MDRouterSolutionContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34B61FE43AF7002554DE /* MDRouterSolutionContainer.h */; };
 		083A34C91FE43AF8002554DE /* MDRouterSimpleAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34B71FE43AF7002554DE /* MDRouterSimpleAdapter.m */; };
 		083A34CA1FE43AF8002554DE /* MDRouterWebsiteAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34B81FE43AF7002554DE /* MDRouterWebsiteAdapter.h */; };
-		083A34CB1FE43AF8002554DE /* MDRouterSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34B91FE43AF7002554DE /* MDRouterSolution.h */; };
-		083A34CC1FE43AF8002554DE /* MDRouterSolutionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34BA1FE43AF7002554DE /* MDRouterSolutionItem.h */; };
 		083A34CD1FE43AF8002554DE /* MDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34BB1FE43AF7002554DE /* MDRouter.m */; };
 		083A34CE1FE43AF8002554DE /* MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34BC1FE43AF8002554DE /* MDRouter.h */; };
-		083A34CF1FE43AF8002554DE /* MDRouterSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34BD1FE43AF8002554DE /* MDRouterSolution.m */; };
 		083A34D01FE43AF8002554DE /* MDRouterConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34BE1FE43AF8002554DE /* MDRouterConstants.h */; };
 		083A34D11FE43AF8002554DE /* MDRouterAdapter+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34BF1FE43AF8002554DE /* MDRouterAdapter+Private.h */; };
-		083A34D21FE43AF8002554DE /* MDRouterSolutionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34C01FE43AF8002554DE /* MDRouterSolutionContainer.m */; };
 		083A34D31FE43AF8002554DE /* MDRouterUndirectionalAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34C11FE43AF8002554DE /* MDRouterUndirectionalAdapter.h */; };
-		083A34D61FE43C54002554DE /* NSError+MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34D41FE43C54002554DE /* NSError+MDRouter.h */; };
-		083A34D71FE43C54002554DE /* NSError+MDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A34D51FE43C54002554DE /* NSError+MDRouter.m */; };
+		08468F841FF364D70063068C /* MDRouterSolutionContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F7C1FF364D70063068C /* MDRouterSolutionContainer.h */; };
+		08468F851FF364D70063068C /* MDRouterSolutionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F7D1FF364D70063068C /* MDRouterSolutionContainer.m */; };
+		08468F861FF364D70063068C /* MDRouterSolutionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F7E1FF364D70063068C /* MDRouterSolutionItem.h */; };
+		08468F871FF364D70063068C /* MDRouterSolutionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F7F1FF364D70063068C /* MDRouterSolutionItem.m */; };
+		08468F881FF364D70063068C /* NSError+MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F801FF364D70063068C /* NSError+MDRouter.h */; };
+		08468F891FF364D70063068C /* NSError+MDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F811FF364D70063068C /* NSError+MDRouter.m */; };
+		08468F8C1FF366960063068C /* NSSet+MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F8A1FF366960063068C /* NSSet+MDRouter.h */; };
+		08468F8D1FF366960063068C /* NSSet+MDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F8B1FF366960063068C /* NSSet+MDRouter.m */; };
+		08468F901FF36A830063068C /* UIViewController+MDRouterSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F8E1FF36A830063068C /* UIViewController+MDRouterSolution.h */; };
+		08468F911FF36A830063068C /* UIViewController+MDRouterSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F8F1FF36A830063068C /* UIViewController+MDRouterSolution.m */; };
+		08468F941FF36C1F0063068C /* MDRouterSampleSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F921FF36C1F0063068C /* MDRouterSampleSolution.h */; };
+		08468F951FF36C1F0063068C /* MDRouterSampleSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F931FF36C1F0063068C /* MDRouterSampleSolution.m */; };
+		08468F981FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F961FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.h */; };
+		08468F991FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 08468F971FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.m */; };
+		08468F9B1FF36CE90063068C /* MDRouterSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F9A1FF36CE90063068C /* MDRouterSolution.h */; };
+		08468F9D1FF36D1C0063068C /* MDRouterClassSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F9C1FF36D1C0063068C /* MDRouterClassSolution.h */; };
+		08468FA11FF375300063068C /* MDRouterAsynchronizeSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,22 +60,31 @@
 		083A34B11FE43AF7002554DE /* MDRouterWebsiteAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterWebsiteAdapter.m; sourceTree = "<group>"; };
 		083A34B21FE43AF7002554DE /* MDRouterAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterAdapter.h; sourceTree = "<group>"; };
 		083A34B31FE43AF7002554DE /* MDRouterUndirectionalAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterUndirectionalAdapter.m; sourceTree = "<group>"; };
-		083A34B41FE43AF7002554DE /* MDRouterSolutionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSolutionItem.m; sourceTree = "<group>"; };
 		083A34B51FE43AF7002554DE /* MDRouterAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterAdapter.m; sourceTree = "<group>"; };
-		083A34B61FE43AF7002554DE /* MDRouterSolutionContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolutionContainer.h; sourceTree = "<group>"; };
 		083A34B71FE43AF7002554DE /* MDRouterSimpleAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSimpleAdapter.m; sourceTree = "<group>"; };
 		083A34B81FE43AF7002554DE /* MDRouterWebsiteAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterWebsiteAdapter.h; sourceTree = "<group>"; };
-		083A34B91FE43AF7002554DE /* MDRouterSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolution.h; sourceTree = "<group>"; };
-		083A34BA1FE43AF7002554DE /* MDRouterSolutionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolutionItem.h; sourceTree = "<group>"; };
 		083A34BB1FE43AF7002554DE /* MDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouter.m; sourceTree = "<group>"; };
 		083A34BC1FE43AF8002554DE /* MDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouter.h; sourceTree = "<group>"; };
-		083A34BD1FE43AF8002554DE /* MDRouterSolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSolution.m; sourceTree = "<group>"; };
 		083A34BE1FE43AF8002554DE /* MDRouterConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterConstants.h; sourceTree = "<group>"; };
 		083A34BF1FE43AF8002554DE /* MDRouterAdapter+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MDRouterAdapter+Private.h"; sourceTree = "<group>"; };
-		083A34C01FE43AF8002554DE /* MDRouterSolutionContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSolutionContainer.m; sourceTree = "<group>"; };
 		083A34C11FE43AF8002554DE /* MDRouterUndirectionalAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterUndirectionalAdapter.h; sourceTree = "<group>"; };
-		083A34D41FE43C54002554DE /* NSError+MDRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+MDRouter.h"; sourceTree = "<group>"; };
-		083A34D51FE43C54002554DE /* NSError+MDRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+MDRouter.m"; sourceTree = "<group>"; };
+		08468F7C1FF364D70063068C /* MDRouterSolutionContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolutionContainer.h; sourceTree = "<group>"; };
+		08468F7D1FF364D70063068C /* MDRouterSolutionContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSolutionContainer.m; sourceTree = "<group>"; };
+		08468F7E1FF364D70063068C /* MDRouterSolutionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolutionItem.h; sourceTree = "<group>"; };
+		08468F7F1FF364D70063068C /* MDRouterSolutionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRouterSolutionItem.m; sourceTree = "<group>"; };
+		08468F801FF364D70063068C /* NSError+MDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MDRouter.h"; sourceTree = "<group>"; };
+		08468F811FF364D70063068C /* NSError+MDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MDRouter.m"; sourceTree = "<group>"; };
+		08468F8A1FF366960063068C /* NSSet+MDRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSSet+MDRouter.h"; sourceTree = "<group>"; };
+		08468F8B1FF366960063068C /* NSSet+MDRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSSet+MDRouter.m"; sourceTree = "<group>"; };
+		08468F8E1FF36A830063068C /* UIViewController+MDRouterSolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MDRouterSolution.h"; sourceTree = "<group>"; };
+		08468F8F1FF36A830063068C /* UIViewController+MDRouterSolution.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MDRouterSolution.m"; sourceTree = "<group>"; };
+		08468F921FF36C1F0063068C /* MDRouterSampleSolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRouterSampleSolution.h; sourceTree = "<group>"; };
+		08468F931FF36C1F0063068C /* MDRouterSampleSolution.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDRouterSampleSolution.m; sourceTree = "<group>"; };
+		08468F961FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRouterAsynchronizeSampleSolution.h; sourceTree = "<group>"; };
+		08468F971FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDRouterAsynchronizeSampleSolution.m; sourceTree = "<group>"; };
+		08468F9A1FF36CE90063068C /* MDRouterSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterSolution.h; sourceTree = "<group>"; };
+		08468F9C1FF36D1C0063068C /* MDRouterClassSolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRouterClassSolution.h; sourceTree = "<group>"; };
+		08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterAsynchronizeSolution.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,26 +127,28 @@
 		083A343F1FE425DC002554DE /* MDRouter */ = {
 			isa = PBXGroup;
 			children = (
+				08468F791FF364D70063068C /* Private */,
+				083A34BE1FE43AF8002554DE /* MDRouterConstants.h */,
 				083A34BC1FE43AF8002554DE /* MDRouter.h */,
 				083A34BB1FE43AF7002554DE /* MDRouter.m */,
 				083A34B21FE43AF7002554DE /* MDRouterAdapter.h */,
 				083A34B51FE43AF7002554DE /* MDRouterAdapter.m */,
 				083A34BF1FE43AF8002554DE /* MDRouterAdapter+Private.h */,
-				083A34BE1FE43AF8002554DE /* MDRouterConstants.h */,
 				083A34B01FE43AF7002554DE /* MDRouterSimpleAdapter.h */,
 				083A34B71FE43AF7002554DE /* MDRouterSimpleAdapter.m */,
-				083A34B91FE43AF7002554DE /* MDRouterSolution.h */,
-				083A34BD1FE43AF8002554DE /* MDRouterSolution.m */,
-				083A34B61FE43AF7002554DE /* MDRouterSolutionContainer.h */,
-				083A34C01FE43AF8002554DE /* MDRouterSolutionContainer.m */,
-				083A34BA1FE43AF7002554DE /* MDRouterSolutionItem.h */,
-				083A34B41FE43AF7002554DE /* MDRouterSolutionItem.m */,
 				083A34C11FE43AF8002554DE /* MDRouterUndirectionalAdapter.h */,
 				083A34B31FE43AF7002554DE /* MDRouterUndirectionalAdapter.m */,
 				083A34B81FE43AF7002554DE /* MDRouterWebsiteAdapter.h */,
 				083A34B11FE43AF7002554DE /* MDRouterWebsiteAdapter.m */,
-				083A34D41FE43C54002554DE /* NSError+MDRouter.h */,
-				083A34D51FE43C54002554DE /* NSError+MDRouter.m */,
+				08468F9A1FF36CE90063068C /* MDRouterSolution.h */,
+				08468F9C1FF36D1C0063068C /* MDRouterClassSolution.h */,
+				08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */,
+				08468F921FF36C1F0063068C /* MDRouterSampleSolution.h */,
+				08468F931FF36C1F0063068C /* MDRouterSampleSolution.m */,
+				08468F961FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.h */,
+				08468F971FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.m */,
+				08468F8E1FF36A830063068C /* UIViewController+MDRouterSolution.h */,
+				08468F8F1FF36A830063068C /* UIViewController+MDRouterSolution.m */,
 				083A34411FE425DC002554DE /* Info.plist */,
 			);
 			path = MDRouter;
@@ -143,6 +163,21 @@
 			path = MDRouterTests;
 			sourceTree = "<group>";
 		};
+		08468F791FF364D70063068C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				08468F7C1FF364D70063068C /* MDRouterSolutionContainer.h */,
+				08468F7D1FF364D70063068C /* MDRouterSolutionContainer.m */,
+				08468F7E1FF364D70063068C /* MDRouterSolutionItem.h */,
+				08468F7F1FF364D70063068C /* MDRouterSolutionItem.m */,
+				08468F801FF364D70063068C /* NSError+MDRouter.h */,
+				08468F811FF364D70063068C /* NSError+MDRouter.m */,
+				08468F8A1FF366960063068C /* NSSet+MDRouter.h */,
+				08468F8B1FF366960063068C /* NSSet+MDRouter.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -150,17 +185,23 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08468F8C1FF366960063068C /* NSSet+MDRouter.h in Headers */,
 				083A34C21FE43AF8002554DE /* MDRouterSimpleAdapter.h in Headers */,
-				083A34CB1FE43AF8002554DE /* MDRouterSolution.h in Headers */,
-				083A34D61FE43C54002554DE /* NSError+MDRouter.h in Headers */,
+				08468F9D1FF36D1C0063068C /* MDRouterClassSolution.h in Headers */,
 				083A34CE1FE43AF8002554DE /* MDRouter.h in Headers */,
+				08468F981FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.h in Headers */,
+				08468F881FF364D70063068C /* NSError+MDRouter.h in Headers */,
 				083A34CA1FE43AF8002554DE /* MDRouterWebsiteAdapter.h in Headers */,
+				08468FA11FF375300063068C /* MDRouterAsynchronizeSolution.h in Headers */,
+				08468F841FF364D70063068C /* MDRouterSolutionContainer.h in Headers */,
+				08468F9B1FF36CE90063068C /* MDRouterSolution.h in Headers */,
+				08468F861FF364D70063068C /* MDRouterSolutionItem.h in Headers */,
 				083A34D11FE43AF8002554DE /* MDRouterAdapter+Private.h in Headers */,
 				083A34D31FE43AF8002554DE /* MDRouterUndirectionalAdapter.h in Headers */,
-				083A34CC1FE43AF8002554DE /* MDRouterSolutionItem.h in Headers */,
+				08468F941FF36C1F0063068C /* MDRouterSampleSolution.h in Headers */,
+				08468F901FF36A830063068C /* UIViewController+MDRouterSolution.h in Headers */,
 				083A34D01FE43AF8002554DE /* MDRouterConstants.h in Headers */,
 				083A34C41FE43AF8002554DE /* MDRouterAdapter.h in Headers */,
-				083A34C81FE43AF8002554DE /* MDRouterSolutionContainer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,15 +303,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08468F911FF36A830063068C /* UIViewController+MDRouterSolution.m in Sources */,
 				083A34C91FE43AF8002554DE /* MDRouterSimpleAdapter.m in Sources */,
 				083A34C71FE43AF8002554DE /* MDRouterAdapter.m in Sources */,
-				083A34CF1FE43AF8002554DE /* MDRouterSolution.m in Sources */,
 				083A34C51FE43AF8002554DE /* MDRouterUndirectionalAdapter.m in Sources */,
-				083A34C61FE43AF8002554DE /* MDRouterSolutionItem.m in Sources */,
-				083A34D21FE43AF8002554DE /* MDRouterSolutionContainer.m in Sources */,
 				083A34CD1FE43AF8002554DE /* MDRouter.m in Sources */,
-				083A34D71FE43C54002554DE /* NSError+MDRouter.m in Sources */,
+				08468F851FF364D70063068C /* MDRouterSolutionContainer.m in Sources */,
 				083A34C31FE43AF8002554DE /* MDRouterWebsiteAdapter.m in Sources */,
+				08468F991FF36C8E0063068C /* MDRouterAsynchronizeSampleSolution.m in Sources */,
+				08468F951FF36C1F0063068C /* MDRouterSampleSolution.m in Sources */,
+				08468F8D1FF366960063068C /* NSSet+MDRouter.m in Sources */,
+				08468F891FF364D70063068C /* NSError+MDRouter.m in Sources */,
+				08468F871FF364D70063068C /* MDRouterSolutionItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,9 +11,9 @@
 @interface MDRouterSolutionContainer : NSObject
 
 - (NSArray<MDRouterSolutionItem *> *)solutionItemsWithURL:(NSURL *)URL;
-- (MDRouterSolutionItem *)solutionItemWithSolution:(id<MDRouterSolution>)solution URL:(NSURL *)URL;
+- (MDRouterSolutionItem *)solutionItemWithSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
 
-- (BOOL)addSolution:(id<MDRouterSolution>)solution forURL:(NSURL *)URL;
-- (BOOL)removeSolution:(id<MDRouterSolution>)solution forURL:(NSURL *)URL;
+- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;
 
 @end

@@ -10,15 +10,15 @@
 
 @interface MDRouterSolutionItem : NSObject
 
-@property (nonatomic, copy, readonly) NSURL *URL;
+@property (nonatomic, copy, readonly) NSURL *baseURL;
 
 @property (nonatomic, strong, readonly) id<MDRouterSolution> solution;
 
-+ (instancetype)solutionItemWithURL:(NSURL *)URL solution:(id<MDRouterSolution>)solution;
-- (instancetype)initWithURL:(NSURL *)URL solution:(id<MDRouterSolution>)solution;
++ (instancetype)solutionItemWithBaseURL:(NSURL *)baseURL solution:(id<MDRouterSolution>)solution;
+- (instancetype)initWithBaseURL:(NSURL *)baseURL solution:(id<MDRouterSolution>)solution;
 
 - (id)invokeWithArguments:(NSDictionary *)arguments error:(NSError **)error;
 
-- (BOOL)validatURL:(NSURL *)URL;
+- (BOOL)validatBaseURL:(NSURL *)baseURL;
 
 @end

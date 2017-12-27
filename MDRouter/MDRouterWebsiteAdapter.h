@@ -10,4 +10,11 @@
 
 @interface MDRouterWebsiteAdapter : MDRouterAdapter
 
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL NS_UNAVAILABLE;
+
+- (instancetype)initWithBaseURL:(NSURL *)baseURL NS_UNAVAILABLE;
+
++ (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;
+- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;
+
 @end

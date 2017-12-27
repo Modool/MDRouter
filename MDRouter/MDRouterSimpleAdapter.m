@@ -10,6 +10,7 @@
 #import "MDRouterAdapter+Private.h"
 
 #import "MDRouterConstants.h"
+#import "NSError+MDRouter.h"
 
 @interface MDRouterSimpleAdapter ()
 
@@ -41,9 +42,7 @@
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
     if (![self handler]) {
         if (error) {
-            NSMutableDictionary *userInfo = [*error ? @{NSUnderlyingErrorKey: *error} : @{} mutableCopy];
-            userInfo[NSLocalizedDescriptionKey] = @"无效的跳转链接";
-            *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeNoHandler userInfo:userInfo];
+            *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeNoHandler userInfo:@{NSLocalizedDescriptionKey: @"无效的跳转链接"} underlyingError:*error];
         }
     } else {
         id result = self.handler(URL, arguments, error);

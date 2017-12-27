@@ -9,12 +9,23 @@
 #import "MDRouterWebsiteAdapter.h"
 #import "MDRouterAdapter+Private.h"
 
-NSString * const MDRouterWebsiteAdapterPredicateString = @"^(http|https)://*$";
+@interface MDRouterWebsiteAdapter ()
+
+@property (nonatomic, copy) id (^block)(NSDictionary *arguments, NSError **error);
+
+@end
 
 @implementation MDRouterWebsiteAdapter
 
-+ (instancetype)adapter;{
-    return [self adapterWithBaseURL:nil];
++ (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    return [[self alloc] initWithBlock:block];
+}
+
+- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    if (self = [super initWithBaseURL:nil]) {
+        self.block = block;
+    }
+    return self;
 }
 
 #pragma mark - private
@@ -24,6 +35,12 @@ NSString * const MDRouterWebsiteAdapterPredicateString = @"^(http|https)://*$";
 }
 
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
+    if ([self block]) {
+        id result = self.block(arguments, error);
+        if (output) *output = result;
+        
+        return YES;
+    }
     return NO;
 }
 
