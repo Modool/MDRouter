@@ -11,6 +11,7 @@
 
 #import "MDRouterConstants.h"
 #import "NSSet+MDRouter.h"
+#import "NSError+MDRouter.h"
 
 NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domain";
 
@@ -105,10 +106,7 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
     
     BOOL state = [super openURL:URL arguments:arguments output:output error:error];
     if (!state && error && *error == nil) {
-        NSMutableDictionary *userInfo = [*error ? @{NSUnderlyingErrorKey: *error} : @{} mutableCopy];
-        userInfo[NSLocalizedDescriptionKey] = @"无效的跳转链接";
-        
-        *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeInvalidURL userInfo:userInfo];
+        *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeInvalidURL userInfo:@{NSLocalizedDescriptionKey: @"Failed to redirect invalid URL."} underlyingError:*error];
     }
     return state;
 }

@@ -95,7 +95,8 @@
         if (innerError) [errors addObject:innerError];
     }
     
-    if (!error) {
+    if (output) *output = results;
+    if (error) {
         if ([errors count] > 1) {
             *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeHandleFailed userInfo:@{NSUnderlyingErrorKey: errors}];
         } else if ([errors count]) {

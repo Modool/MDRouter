@@ -20,10 +20,10 @@
     [super viewDidLoad];
     
     MDRouterSimpleSolution *addSolution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
-        NSNumber *from = arguments[@"a"];
-        NSNumber *to = arguments[@"b"];
+        NSNumber *a = arguments[@"a"];
+        NSNumber *b = arguments[@"b"];
         
-        return @([from doubleValue] + [to doubleValue]);
+        return @([a doubleValue] + [b doubleValue]);
     }];
     
     [[MDSharedAppDelegate router] addSolution:addSolution baseURL:[NSURL URLWithString:@"router://modool.github.com/add"]];

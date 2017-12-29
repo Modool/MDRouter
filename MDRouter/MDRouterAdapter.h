@@ -23,7 +23,6 @@
  */
 - (void)addAdapter:(id<MDRouterAdapter>)adapter;
 
-
 /**
  Remove sub adapter.
  
