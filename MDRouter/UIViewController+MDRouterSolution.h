@@ -11,7 +11,6 @@
 
 extern NSString * MDRouterSolutionItemPushKey;
 extern NSString * MDRouterSolutionItemAnimatedKey;
-extern NSString * MDRouterSolutionItemViewControllerKey;
 
 // To support to route transition for view controller.
 @protocol MDRouterViewControllerSolution <MDRouterClassSolution>

@@ -11,9 +11,13 @@
 
 NSString * MDRouterSolutionItemPushKey = @"push";
 NSString * MDRouterSolutionItemAnimatedKey = @"animated";
-NSString * MDRouterSolutionItemViewControllerKey = @"vc";
 
 @implementation UIViewController (MDRouterSolution)
+
++ (NSDictionary<NSString *,NSNumber *> *)argumentConditions{
+    return @{MDRouterSolutionItemPushKey: @NO,
+             MDRouterSolutionItemAnimatedKey: @NO};
+}
 
 - (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError *__autoreleasing *)error {
     return nil;

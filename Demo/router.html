@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<HTML>
+    <BODY>
+        
+        <script type="text/javascript">
+            
+        function test_alert(){
+            alert('test');
+        }
+    
+        function transition_callback(origin_url, result, code, error){
+            alert(code == 0 ? result : error);
+        }
+    
+        function add_callback(origin_url, result, code, error){
+            alert(code == 0 ? ("1 + 4 = " + result) : error);
+        }
+    
+        </script>
+        <b>router test</b>
+        <br><br>
+        <a href='router://modool.github.com/transition?push=1&animated=1&callback=transition_callback'>link test transition</a>
+        <br><br>
+        <button onclick="location.href='router://modool.github.com/transition?push=1&animated=11&callback=transition_callback'">button test transition</button>
+        <br><br>
+        <a href='router://modool.github.com/add?a=1&b=4&callback=add_callback'> a=1  b=4, test a + b </a>
+        <br><br>
+        <button onclick="transition_callback('origin', 'result', 1, 'error')">alert test</button>
+    </BODY>
+</HTML>

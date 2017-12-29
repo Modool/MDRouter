@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		0834E9731FF5F7C0006B6D5A /* MDRouterAsynchronizeClassSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 0834E9721FF5F7C0006B6D5A /* MDRouterAsynchronizeClassSolution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0834E97C1FF612A0006B6D5A /* MDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E97B1FF612A0006B6D5A /* MDAppDelegate.m */; };
+		0834E97F1FF612A0006B6D5A /* MDWebviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E97E1FF612A0006B6D5A /* MDWebviewController.m */; };
+		0834E9821FF612A0006B6D5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0834E9801FF612A0006B6D5A /* Main.storyboard */; };
+		0834E9841FF612A0006B6D5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0834E9831FF612A0006B6D5A /* Assets.xcassets */; };
+		0834E9871FF612A0006B6D5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0834E9851FF612A0006B6D5A /* LaunchScreen.storyboard */; };
+		0834E98A1FF612A0006B6D5A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E9891FF612A0006B6D5A /* main.m */; };
+		0834E9941FF612A0006B6D5A /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E9931FF612A0006B6D5A /* DemoTests.m */; };
+		0834E99E1FF613A9006B6D5A /* MDRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E99D1FF613A9006B6D5A /* MDRootTableViewController.m */; };
+		0834E9A11FF61457006B6D5A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0834E9A01FF61457006B6D5A /* WebKit.framework */; };
+		0834E9A61FF615B2006B6D5A /* MDTransitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834E9A51FF615B2006B6D5A /* MDTransitViewController.m */; };
+		0834E9AB1FF61CE4006B6D5A /* router.html in Resources */ = {isa = PBXBuildFile; fileRef = 0834E9AA1FF61CE4006B6D5A /* router.html */; };
 		083A34471FE425DD002554DE /* MDRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083A343D1FE425DC002554DE /* MDRouter.framework */; };
 		083A344C1FE425DD002554DE /* MDRouterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A344B1FE425DD002554DE /* MDRouterTests.m */; };
 		083A34C21FE43AF8002554DE /* MDRouterSimpleAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 083A34B01FE43AF7002554DE /* MDRouterSimpleAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,10 +50,24 @@
 		08468F9D1FF36D1C0063068C /* MDRouterClassSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468F9C1FF36D1C0063068C /* MDRouterClassSolution.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08468FA11FF375300063068C /* MDRouterAsynchronizeSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08468FA31FF392BF0063068C /* MDRouterAdapter+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA21FF392BE0063068C /* MDRouterAdapter+Private.h */; };
-		08468FA51FF39BC60063068C /* MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA41FF39BC50063068C /* MDRouter.h */; };
+		08468FA51FF39BC60063068C /* MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA41FF39BC50063068C /* MDRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0834E9901FF612A0006B6D5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 083A34341FE425DC002554DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0834E9771FF612A0006B6D5A;
+			remoteInfo = Demo;
+		};
+		0834E9A21FF61544006B6D5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 083A34341FE425DC002554DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 083A343C1FE425DC002554DE;
+			remoteInfo = MDRouter;
+		};
 		083A34481FE425DD002554DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 083A34341FE425DC002554DE /* Project object */;
@@ -54,6 +79,25 @@
 
 /* Begin PBXFileReference section */
 		0834E9721FF5F7C0006B6D5A /* MDRouterAsynchronizeClassSolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRouterAsynchronizeClassSolution.h; sourceTree = "<group>"; };
+		0834E9781FF612A0006B6D5A /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0834E97A1FF612A0006B6D5A /* MDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDAppDelegate.h; sourceTree = "<group>"; };
+		0834E97B1FF612A0006B6D5A /* MDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDAppDelegate.m; sourceTree = "<group>"; };
+		0834E97D1FF612A0006B6D5A /* MDWebviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDWebviewController.h; sourceTree = "<group>"; };
+		0834E97E1FF612A0006B6D5A /* MDWebviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDWebviewController.m; sourceTree = "<group>"; };
+		0834E9811FF612A0006B6D5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0834E9831FF612A0006B6D5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0834E9861FF612A0006B6D5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0834E9881FF612A0006B6D5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0834E9891FF612A0006B6D5A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0834E98F1FF612A0006B6D5A /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0834E9931FF612A0006B6D5A /* DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoTests.m; sourceTree = "<group>"; };
+		0834E9951FF612A0006B6D5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0834E99C1FF613A9006B6D5A /* MDRootTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRootTableViewController.h; sourceTree = "<group>"; };
+		0834E99D1FF613A9006B6D5A /* MDRootTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDRootTableViewController.m; sourceTree = "<group>"; };
+		0834E9A01FF61457006B6D5A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		0834E9A41FF615B2006B6D5A /* MDTransitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDTransitViewController.h; sourceTree = "<group>"; };
+		0834E9A51FF615B2006B6D5A /* MDTransitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDTransitViewController.m; sourceTree = "<group>"; };
+		0834E9AA1FF61CE4006B6D5A /* router.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = router.html; sourceTree = "<group>"; };
 		083A343D1FE425DC002554DE /* MDRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MDRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		083A34411FE425DC002554DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083A34461FE425DD002554DE /* MDRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MDRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +136,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0834E9751FF612A0006B6D5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0834E9A11FF61457006B6D5A /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0834E98C1FF612A0006B6D5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		083A34391FE425DC002554DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -110,12 +169,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0834E9791FF612A0006B6D5A /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				0834E97A1FF612A0006B6D5A /* MDAppDelegate.h */,
+				0834E97B1FF612A0006B6D5A /* MDAppDelegate.m */,
+				0834E99C1FF613A9006B6D5A /* MDRootTableViewController.h */,
+				0834E99D1FF613A9006B6D5A /* MDRootTableViewController.m */,
+				0834E9A41FF615B2006B6D5A /* MDTransitViewController.h */,
+				0834E9A51FF615B2006B6D5A /* MDTransitViewController.m */,
+				0834E97D1FF612A0006B6D5A /* MDWebviewController.h */,
+				0834E97E1FF612A0006B6D5A /* MDWebviewController.m */,
+				0834E9801FF612A0006B6D5A /* Main.storyboard */,
+				0834E9831FF612A0006B6D5A /* Assets.xcassets */,
+				0834E9851FF612A0006B6D5A /* LaunchScreen.storyboard */,
+				0834E9881FF612A0006B6D5A /* Info.plist */,
+				0834E9891FF612A0006B6D5A /* main.m */,
+				0834E9AA1FF61CE4006B6D5A /* router.html */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		0834E9921FF612A0006B6D5A /* DemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				0834E9931FF612A0006B6D5A /* DemoTests.m */,
+				0834E9951FF612A0006B6D5A /* Info.plist */,
+			);
+			path = DemoTests;
+			sourceTree = "<group>";
+		};
+		0834E99F1FF61456006B6D5A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0834E9A01FF61457006B6D5A /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		083A34331FE425DC002554DE = {
 			isa = PBXGroup;
 			children = (
 				083A343F1FE425DC002554DE /* MDRouter */,
 				083A344A1FE425DD002554DE /* MDRouterTests */,
+				0834E9791FF612A0006B6D5A /* Demo */,
+				0834E9921FF612A0006B6D5A /* DemoTests */,
 				083A343E1FE425DC002554DE /* Products */,
+				0834E99F1FF61456006B6D5A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +224,8 @@
 			children = (
 				083A343D1FE425DC002554DE /* MDRouter.framework */,
 				083A34461FE425DD002554DE /* MDRouterTests.xctest */,
+				0834E9781FF612A0006B6D5A /* Demo.app */,
+				0834E98F1FF612A0006B6D5A /* DemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +318,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0834E9771FF612A0006B6D5A /* Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0834E99A1FF612A0006B6D5A /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildPhases = (
+				0834E9741FF612A0006B6D5A /* Sources */,
+				0834E9751FF612A0006B6D5A /* Frameworks */,
+				0834E9761FF612A0006B6D5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0834E9A31FF61544006B6D5A /* PBXTargetDependency */,
+			);
+			name = Demo;
+			productName = Demo;
+			productReference = 0834E9781FF612A0006B6D5A /* Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0834E98E1FF612A0006B6D5A /* DemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0834E99B1FF612A0006B6D5A /* Build configuration list for PBXNativeTarget "DemoTests" */;
+			buildPhases = (
+				0834E98B1FF612A0006B6D5A /* Sources */,
+				0834E98C1FF612A0006B6D5A /* Frameworks */,
+				0834E98D1FF612A0006B6D5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0834E9911FF612A0006B6D5A /* PBXTargetDependency */,
+			);
+			name = DemoTests;
+			productName = DemoTests;
+			productReference = 0834E98F1FF612A0006B6D5A /* DemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		083A343C1FE425DC002554DE /* MDRouter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 083A34511FE425DD002554DE /* Build configuration list for PBXNativeTarget "MDRouter" */;
@@ -261,6 +399,15 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = markejave;
 				TargetAttributes = {
+					0834E9771FF612A0006B6D5A = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					0834E98E1FF612A0006B6D5A = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0834E9771FF612A0006B6D5A;
+					};
 					083A343C1FE425DC002554DE = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -277,6 +424,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 083A34331FE425DC002554DE;
 			productRefGroup = 083A343E1FE425DC002554DE /* Products */;
@@ -285,11 +433,31 @@
 			targets = (
 				083A343C1FE425DC002554DE /* MDRouter */,
 				083A34451FE425DD002554DE /* MDRouterTests */,
+				0834E9771FF612A0006B6D5A /* Demo */,
+				0834E98E1FF612A0006B6D5A /* DemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0834E9761FF612A0006B6D5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0834E9871FF612A0006B6D5A /* LaunchScreen.storyboard in Resources */,
+				0834E9841FF612A0006B6D5A /* Assets.xcassets in Resources */,
+				0834E9821FF612A0006B6D5A /* Main.storyboard in Resources */,
+				0834E9AB1FF61CE4006B6D5A /* router.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0834E98D1FF612A0006B6D5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		083A343B1FE425DC002554DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +475,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0834E9741FF612A0006B6D5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0834E97F1FF612A0006B6D5A /* MDWebviewController.m in Sources */,
+				0834E98A1FF612A0006B6D5A /* main.m in Sources */,
+				0834E9A61FF615B2006B6D5A /* MDTransitViewController.m in Sources */,
+				0834E99E1FF613A9006B6D5A /* MDRootTableViewController.m in Sources */,
+				0834E97C1FF612A0006B6D5A /* MDAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0834E98B1FF612A0006B6D5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0834E9941FF612A0006B6D5A /* DemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		083A34381FE425DC002554DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,6 +525,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0834E9911FF612A0006B6D5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0834E9771FF612A0006B6D5A /* Demo */;
+			targetProxy = 0834E9901FF612A0006B6D5A /* PBXContainerItemProxy */;
+		};
+		0834E9A31FF61544006B6D5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 083A343C1FE425DC002554DE /* MDRouter */;
+			targetProxy = 0834E9A21FF61544006B6D5A /* PBXContainerItemProxy */;
+		};
 		083A34491FE425DD002554DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 083A343C1FE425DC002554DE /* MDRouter */;
@@ -344,7 +542,80 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		0834E9801FF612A0006B6D5A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0834E9811FF612A0006B6D5A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0834E9851FF612A0006B6D5A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0834E9861FF612A0006B6D5A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		0834E9961FF612A0006B6D5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markejave.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0834E9971FF612A0006B6D5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markejave.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0834E9981FF612A0006B6D5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markejave.DemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
+			};
+			name = Debug;
+		};
+		0834E9991FF612A0006B6D5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markejave.DemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
+			};
+			name = Release;
+		};
 		083A344F1FE425DD002554DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -522,6 +793,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0834E99A1FF612A0006B6D5A /* Build configuration list for PBXNativeTarget "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0834E9961FF612A0006B6D5A /* Debug */,
+				0834E9971FF612A0006B6D5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0834E99B1FF612A0006B6D5A /* Build configuration list for PBXNativeTarget "DemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0834E9981FF612A0006B6D5A /* Debug */,
+				0834E9991FF612A0006B6D5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		083A34371FE425DC002554DE /* Build configuration list for PBXProject "MDRouter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
