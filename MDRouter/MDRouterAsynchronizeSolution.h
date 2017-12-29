@@ -8,8 +8,17 @@
 
 #import "MDRouterSolution.h"
 
+// Asynchronous solution protocol to support outside asynchronous routing if adapters aren't enough.
 @protocol MDRouterAsynchronizeSolution <MDRouterSolution>
 
-- (void)asynchronizeInvokeWithCompletion:(void (^)(id<MDRouterSolution> solution))completion;
+/**
+ Be called with arguments and output error point if solution is matched.
+ 
+ @param arguments input arguments which maybe decoded by query string of URL.
+ @param error output error.
+ @param completion called asynchronously when solution is completed.
+ @return result of solution invoked.
+ */
+- (BOOL)invokeAsynchronizedArguments:(NSDictionary *)arguments error:(NSError **)error completion:(void (^)(id<MDRouterSolution> solution))completion;
 
 @end

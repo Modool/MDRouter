@@ -11,10 +11,22 @@
 @interface MDRouterWebsiteAdapter : MDRouterAdapter
 
 + (instancetype)adapterWithBaseURL:(NSURL *)baseURL NS_UNAVAILABLE;
-
 - (instancetype)initWithBaseURL:(NSURL *)baseURL NS_UNAVAILABLE;
 
+/**
+ Instance of MDRouterWebsiteAdapter with block handler.
+ 
+ @param block a block to route if scheme of any adapter or solution is http or https.
+ @return instance of MDRouterWebsiteAdapter
+ */
 + (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;
+
+/**
+ Initialization of MDRouterWebsiteAdapter with block handler.
+ 
+ @param block a block to route if scheme of any adapter or solution is http or https.
+ @return instance of MDRouterWebsiteAdapter
+ */
 - (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;
 
 @end

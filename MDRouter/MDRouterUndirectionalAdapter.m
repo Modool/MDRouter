@@ -21,10 +21,12 @@
 @implementation MDRouterUndirectionalAdapter
 
 + (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    NSParameterAssert(block);
     return [[self alloc] initWithBlock:block];
 }
 
 - (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    NSParameterAssert(block);
     if (self = [super initWithBaseURL:nil]) {
         self.block = block;
     }

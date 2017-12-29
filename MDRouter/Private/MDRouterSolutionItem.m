@@ -10,6 +10,9 @@
 #import "MDRouterSolutionItem.h"
 #import "MDRouterAsynchronizeSolution.h"
 
+#import "NSError+MDRouter.h"
+#import "MDRouterConstants.h"
+
 @interface MDRouterSolutionItem ()
 
 @property (nonatomic, copy) NSURL *baseURL;
@@ -50,8 +53,8 @@
     
     if ([[self solution] conformsToProtocol:@protocol(MDRouterAccessableSolution)]) {
         id<MDRouterAccessableSolution> accessableSolution = (id)[self solution];
-        if ([[accessableSolution class] respondsToSelector:@selector(verifyValidWithRouterArguments:)]) {
-            id<MDRouterSolution> solution = [[accessableSolution class] verifyValidWithRouterArguments:arguments];
+        if ([accessableSolution respondsToSelector:@selector(verifyValidWithRouterArguments:)]) {
+            id<MDRouterSolution> solution = [accessableSolution verifyValidWithRouterArguments:arguments];
             if (solution) {
                 [self handlerSolution:solution arguments:arguments error:error completion:^{
                     completion(NULL);
@@ -68,12 +71,18 @@
 }
 
 - (id)handlerSolution:(id<MDRouterSolution>)solution arguments:(NSDictionary *)arguments error:(NSError **)error completion:(void (^)(void))completion{
-    if (!solution) return nil;
+    NSParameterAssert(solution);
+    
+    BOOL valid = [self shouldHandleSolution:solution arguments:arguments];
+    if (!valid) {
+        if (error) *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeLackOfNecessaryParameters userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to handle solution: %@ because Lack of necessary arguments: %@", solution, arguments]} underlyingError:*error];
+        return nil;
+    }
     
     if (![solution conformsToProtocol:@protocol(MDRouterAsynchronizeSolution)]) {
         return [solution invokeWithRouterArguments:arguments error:error];
     } else {
-        [(id<MDRouterAsynchronizeSolution>)solution asynchronizeInvokeWithCompletion:^(id<MDRouterSolution> completeSolution) {
+        [(id<MDRouterAsynchronizeSolution>)solution invokeAsynchronizedArguments:arguments error:error completion:^(id<MDRouterSolution> completeSolution) {
             if (completeSolution) {
                 [self handlerSolution:completeSolution arguments:arguments error:NULL completion:completion];
             } else if (completion) {
@@ -82,6 +91,20 @@
         }];
     }
     return nil;
+}
+
+- (BOOL)shouldHandleSolution:(id<MDRouterSolution>)solution arguments:(NSDictionary *)arguments{
+    if ([solution respondsToSelector:@selector(argumentConditions)]) {
+        NSDictionary<NSString *, NSNumber *> *conditions = [solution argumentConditions];
+        NSArray<NSString *> *argumentNames = [arguments allKeys];
+        
+        for (NSString *key in [conditions allKeys]) {
+            if ([argumentNames containsObject:key]) continue;
+            if ([conditions[key] boolValue]) return NO;
+        }
+    }
+    
+    return YES;
 }
 
 @end

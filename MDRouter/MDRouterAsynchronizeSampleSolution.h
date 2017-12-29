@@ -10,7 +10,20 @@
 
 @interface MDRouterAsynchronizeSampleSolution : NSObject<MDRouterSolution>
 
+/**
+ Instance of MDRouterAsynchronizeSampleSolution with block handler.
+ 
+ @param block a block to be route.
+ @return instance of MDRouterAsynchronizeSampleSolution
+ */
 + (instancetype)solutionWithBlock:(void (^)(void (^completion)(id<MDRouterSolution> solution)))block;
+
+/**
+ Initialization of MDRouterAsynchronizeSampleSolution with block handler.
+ 
+ @param block a block to be route.
+ @return instance of MDRouterSimpleSolution
+ */
 - (instancetype)initWithBlock:(void (^)(void (^completion)(id<MDRouterSolution> solution)))block;
 
 @end

@@ -45,7 +45,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 - (void)testFilterSchemes {
     
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -82,7 +82,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testFilterHosts {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -119,7 +119,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testFilterPorts {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -146,7 +146,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testWebsiteAdapter {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -181,7 +181,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 }
 
 - (void)testSampleSolution {
-    MDRouterSampleSolution *solution = [MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterSimpleSolution *solution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }];
     
@@ -197,7 +197,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 }
 
 - (void)testRouterErrorOuput {
-    MDRouterSampleSolution *solution = [MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterSimpleSolution *solution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         *error = [NSError errorWithDomain:MDRouterErrorDomain code:10000 userInfo:nil];
         return nil;
     }];
@@ -216,7 +216,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 - (void)testAsynchronizeSampleSolution {
     XCTestExpectation *expectation = [self expectationWithDescription:@"success"];
     MDRouterAsynchronizeSampleSolution *solution = [MDRouterAsynchronizeSampleSolution solutionWithBlock:^(void (^completion)(id<MDRouterSolution> solution)) {
-        MDRouterSampleSolution *innerSolution = [MDRouterSampleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        MDRouterSimpleSolution *innerSolution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
             [expectation fulfill];
             return @1;
         }];

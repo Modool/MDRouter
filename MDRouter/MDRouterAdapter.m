@@ -12,8 +12,6 @@
 
 #import "MDRouterConstants.h"
 
-NSString * MDRouterAdapterPercentEscapesString = @"!*'\"();:@&=+$,/?%#[]% ";
-
 @implementation MDRouterAdapter
 
 + (instancetype)adapter;{

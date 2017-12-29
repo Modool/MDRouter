@@ -1,14 +1,14 @@
 //
-//  MDRouterSampleSolution.m
+//  MDRouterSimpleSolution.m
 //  MDRouter
 //
 //  Created by Jave on 2017/12/27.
 //  Copyright © 2017年 Modool. All rights reserved.
 //
 
-#import "MDRouterSampleSolution.h"
+#import "MDRouterSimpleSolution.h"
 
-@interface MDRouterSampleSolution ()
+@interface MDRouterSimpleSolution ()
 
 @property (nonatomic, copy) id (^block)(NSDictionary *arguments, NSError **error);
 
@@ -18,13 +18,15 @@
 
 @end
 
-@implementation MDRouterSampleSolution
+@implementation MDRouterSimpleSolution
 
 + (instancetype)solutionWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    NSParameterAssert(block);
     return [[self alloc] initWithBlock:block];
 }
 
 - (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+    NSParameterAssert(block);
     if (self = [super init]) {
         self.block = block;
     }
@@ -32,10 +34,12 @@
 }
 
 + (instancetype)solutionWithTarget:(id)target action:(SEL)action;{
+    NSParameterAssert(target && action);
     return [[self alloc] solutionWithTarget:target action:action];
 }
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action;{
+    NSParameterAssert(target && action);
     if (self = [super init]) {
         self.target = target;
         self.action = action;

@@ -42,7 +42,7 @@
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
     if (![self handler]) {
         if (error) {
-            *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeNoHandler userInfo:@{NSLocalizedDescriptionKey: @"无效的跳转链接"} underlyingError:*error];
+            *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeNoHandler userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to redirect invalid URL: %@", URL]} underlyingError:*error];
         }
     } else {
         id result = self.handler(URL, arguments, error);

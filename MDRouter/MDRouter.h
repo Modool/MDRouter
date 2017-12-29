@@ -29,7 +29,7 @@ FOUNDATION_EXPORT const unsigned char MDRouterVersionString[];
 #import "MDRouterClassSolution.h"
 #import "MDRouterAsynchronizeSolution.h"
 
-#import "MDRouterSampleSolution.h"
+#import "MDRouterSimpleSolution.h"
 #import "MDRouterAsynchronizeSampleSolution.h"
 #import "UIViewController+MDRouterSolution.h"
 
