@@ -114,6 +114,7 @@
  @return YES if any adapter or solution is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error key:(NSString *)key arguments:(va_list)arguments;
+
 @end
 
 // Default class for MDRouterAdapter protocol.
