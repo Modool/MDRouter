@@ -11,18 +11,18 @@
 
 @interface MDRouterWebsiteAdapter ()
 
-@property (nonatomic, copy) id (^block)(NSDictionary *arguments, NSError **error);
+@property (nonatomic, copy) id (^block)(NSURL *URL, NSDictionary *arguments, NSError **error);
 
 @end
 
 @implementation MDRouterWebsiteAdapter
 
-+ (instancetype)adapterWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
++ (instancetype)adapterWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
     NSParameterAssert(block);
     return [[self alloc] initWithBlock:block];
 }
 
-- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+- (instancetype)initWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
     NSParameterAssert(block);
     if (self = [super initWithBaseURL:nil]) {
         self.block = block;
@@ -38,7 +38,7 @@
 
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
     if ([self block]) {
-        id result = self.block(arguments, error);
+        id result = self.block(URL, arguments, error);
         if (output) *output = result;
         
         return YES;

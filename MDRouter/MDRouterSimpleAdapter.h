@@ -14,19 +14,19 @@
  Instance of MDRouterSimpleAdapter with base URL and block handler.
  
  @param baseURL base URL.
- @param handler a block to be route.
+ @param block a block to be route.
  @return instance of MDRouterSimpleAdapter
  */
-+ (instancetype)adapterWithBaseURL:(NSURL *)baseURL handler:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))handler;
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;
 
 /**
  Initialization of MDRouterSimpleAdapter with base URL and block handler.
  
  @param baseURL base URL.
- @param handler a block to be route.
+ @param block a block to be route.
  @return instance of MDRouterSimpleAdapter
  */
-- (instancetype)initWithBaseURL:(NSURL *)baseURL handler:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))handler;
+- (instancetype)initWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;
 
 /**
  Instance of MDRouterSimpleAdapter with base URL and default returned value.

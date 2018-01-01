@@ -14,25 +14,25 @@
 
 @interface MDRouterSimpleAdapter ()
 
-@property (nonatomic, copy) id (^handler)(NSURL *URL, NSDictionary *arguments, NSError **error);
+@property (nonatomic, copy) id (^block)(NSURL *URL, NSDictionary *arguments, NSError **error);
 
 @end
 
 @implementation MDRouterSimpleAdapter
 
-+ (instancetype)adapterWithBaseURL:(NSURL *)baseURL handler:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))handler;{
-    return [[self alloc] initWithBaseURL:baseURL handler:handler];
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
+    return [[self alloc] initWithBaseURL:baseURL block:block];
 }
 
-- (instancetype)initWithBaseURL:(NSURL *)baseURL handler:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))handler;{
+- (instancetype)initWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
     if (self = [super initWithBaseURL:baseURL]) {
-        self.handler = handler;
+        self.block = block;
     }
     return self;
 }
 
 + (instancetype)adapterWithBaseURL:(NSURL *)baseURL return:(id)value;{
-    return [self adapterWithBaseURL:baseURL handler:^id(NSURL *URL, NSDictionary *arguments, NSError **error) {
+    return [self adapterWithBaseURL:baseURL block:^id(NSURL *URL, NSDictionary *arguments, NSError **error) {
         return value;
     }];
 }
@@ -40,12 +40,12 @@
 #pragma mark - private
 
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error{
-    if (![self handler]) {
+    if (![self block]) {
         if (error) {
             *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeNoHandler userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to redirect invalid URL: %@", URL]} underlyingError:*error];
         }
     } else {
-        id result = self.handler(URL, arguments, error);
+        id result = self.block(URL, arguments, error);
         if (output) {
             *output = result;
         }

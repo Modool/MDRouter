@@ -18,7 +18,24 @@
 
 - (MDRouterSet *)router{
     if (!_router) {
-        _router = [MDRouterSet routerWithBaseURL:[NSURL URLWithString:@"router://www.github.com/modool"]];
+        _router = [MDRouterSet router];
+        _router.validSchemes = [NSSet setWithObjects:@"router", @"http", @"https", nil];
+        _router.validHosts = [NSSet setWithObjects:@"www.github.com", @"github.com", nil];
+        
+        MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
+            
+            return nil;
+        }];
+        [_router addAdapter:websiteAdapter];
+        
+        MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
+            NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+            components.scheme = @"http";
+            [_router openURL:[components URL] arguments:arguments output:NULL error:NULL];
+            return nil;
+        }];
+        
+        [_router addAdapter:undirectionalAdapter];
     }
     return _router;
 }
