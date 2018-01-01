@@ -26,7 +26,7 @@
         return @([a doubleValue] + [b doubleValue]);
     }];
     
-    [[MDSharedAppDelegate router] addSolution:addSolution baseURL:[NSURL URLWithString:@"router://modool.github.com/add"]];
+    [[MDSharedAppDelegate router] addSolution:addSolution baseURL:[NSURL URLWithString:@"router://www.github.com/modool/add"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,7 +41,7 @@
         {
             NSError *error = nil;
             id output = nil;
-            BOOL success = [[MDSharedAppDelegate router] openURL:[NSURL URLWithString:@"router://modool.github.com/add?a=1&b=3"] output:&output error:&error];
+            BOOL success = [[MDSharedAppDelegate router] openURL:[NSURL URLWithString:@"router://www.github.com/modool/add?a=1&b=3"] output:&output error:&error];
             if (!success) {
                 NSLog(@"Failed to add value.");
             } else {
@@ -53,7 +53,7 @@
         {
             NSError *error = nil;
             id output = nil;
-            BOOL success = [[MDSharedAppDelegate router] openURL:[NSURL URLWithString:@"router://modool.github.com/transition?push=1&animated=1"] output:&output error:&error];
+            BOOL success = [[MDSharedAppDelegate router] openURL:[NSURL URLWithString:@"router://www.github.com/modool/transition?push=1&animated=1"] output:&output error:&error];
             if (!success) {
                 NSLog(@"Failed to transit view controller.");
             }

@@ -57,7 +57,7 @@
         NSURLComponents *components = [NSURLComponents componentsWithURL:[[navigationAction request] URL] resolvingAgainstBaseURL:NO];
         NSString *callback = [components queryItemValueNamed:@"callback"];
         
-        NSString *javascript = [NSString stringWithFormat:@"%@('%@', '%@', %ld, '%@')", callback, [[[navigationAction request] URL] absoluteString], output ?: @"成功", [error code], [error description]];
+        NSString *javascript = [NSString stringWithFormat:@"%@('%@', '%@', %ld, '%@')", callback, [[[navigationAction request] URL] absoluteString], output ?: @"success", [error code], [error description]];
         
         [webView evaluateJavaScript:javascript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             
@@ -68,8 +68,8 @@
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message ?: @"" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"tips" message:message ?: @"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         completionHandler();
     }])];
     [self presentViewController:alertController animated:YES completion:nil];
