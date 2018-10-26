@@ -42,6 +42,26 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [super tearDown];
 }
 
+- (void)testYiMing {
+
+    MDRouterSimpleSolution *solution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+        return @1;
+    }];
+
+    NSURL *baseURL = [NSURL URLWithString:MDRouterTestRootURLString];
+
+    [[self router] addSolution:solution baseURL:baseURL];
+
+    [[self router] addAdapter:[[MDRouterAdapter alloc] initWithBaseURL:baseURL]];
+
+    [[self router] removeSolution:solution baseURL:baseURL];
+
+    id output = nil;
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:NULL];
+
+    XCTAssertFalse(state);
+}
+
 - (void)testFilterSchemes {
     
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
@@ -164,7 +184,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 }
 
 - (void)testUndirectionalAdapter {
-    MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }];
     

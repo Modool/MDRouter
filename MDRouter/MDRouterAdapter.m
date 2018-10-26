@@ -160,15 +160,14 @@
     }
 }
 
-- (void)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
     NSParameterAssert(baseURL && solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
     
     id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
-    if (adapter) {
-        [adapter removeSolution:solution baseURL:baseURL];
-    } else {
-        [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
-    }
+    BOOL state = NO;
+    if (adapter) state = [adapter removeSolution:solution baseURL:baseURL];
+
+    return state || [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
 }
 
 - (BOOL)canOpenURL:(NSURL *)URL;{
