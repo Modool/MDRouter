@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) id (^block)(NSDictionary *arguments, NSError **error);
 
-@property (nonatomic, assign) id target;
+@property (nonatomic, weak) id target;
 
 @property (nonatomic, assign) SEL action;
 

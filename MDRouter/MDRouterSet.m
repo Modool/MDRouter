@@ -61,7 +61,7 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
 
 - (void)setValidHosts:(NSSet<NSString *> *)validHosts{
     if (_validHosts != validHosts) {
-        _validHosts = [self invalidHosts] ? [validHosts setByMinusSet:[self validHosts]]: validHosts;
+        _validHosts = [self invalidHosts] ? [validHosts setByMinusSet:[self invalidHosts]]: validHosts;
     }
 }
 
@@ -73,7 +73,7 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
 
 - (void)setValidPorts:(NSSet<NSNumber *> *)validPorts{
     if (_validPorts != validPorts) {
-        _validPorts = [self invalidPorts] ? [validPorts setByMinusSet:[self validPorts]]: validPorts;
+        _validPorts = [self invalidPorts] ? [validPorts setByMinusSet:[self invalidPorts]]: validPorts;
     }
 }
 

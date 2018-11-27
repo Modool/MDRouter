@@ -55,11 +55,10 @@
     NSParameterAssert(solution && baseURL);
     
     MDRouterSolutionItem *item = [self solutionItemWithSolution:solution baseURL:baseURL];
-    NSParameterAssert(item);
+
+    if (item) [[self solutionItems] removeObject:item];
     
-    [[self solutionItems] removeObject:item];
-    
-    return YES;
+    return item != nil;
 }
 
 @end

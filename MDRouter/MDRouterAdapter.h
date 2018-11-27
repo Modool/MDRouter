@@ -44,7 +44,7 @@
  @param solution instance of MDRouterSolution protocol.
  @param baseURL base URL matched by adatpers.
  */
-- (void)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
 
 /**
  To verify URL whether any adapter or solution is matched.

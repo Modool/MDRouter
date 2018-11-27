@@ -164,7 +164,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 }
 
 - (void)testUndirectionalAdapter {
-    MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }];
     
