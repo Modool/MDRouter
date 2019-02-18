@@ -42,16 +42,15 @@
     return nil;
 }
 
-- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;{
+- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue {
     NSParameterAssert(solution && baseURL);
     NSParameterAssert(![self solutionItemWithSolution:solution baseURL:baseURL]);
     
-    [[self solutionItems] addObject:[MDRouterSolutionItem solutionItemWithBaseURL:baseURL solution:solution]];
-    
+    [[self solutionItems] addObject:[MDRouterSolutionItem solutionItemWithBaseURL:baseURL solution:solution queue:queue]];
     return YES;
 }
 
-- (BOOL)removeSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;{
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL {
     NSParameterAssert(solution && baseURL);
     
     MDRouterSolutionItem *item = [self solutionItemWithSolution:solution baseURL:baseURL];

@@ -51,6 +51,8 @@
 		08468FA11FF375300063068C /* MDRouterAsynchronizeSolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08468FA31FF392BF0063068C /* MDRouterAdapter+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA21FF392BE0063068C /* MDRouterAdapter+Private.h */; };
 		08468FA51FF39BC60063068C /* MDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08468FA41FF39BC50063068C /* MDRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C68B322C2216AEB800D0B5F2 /* MDRouterBind.h in Headers */ = {isa = PBXBuildFile; fileRef = C68B322A2216AEB800D0B5F2 /* MDRouterBind.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C68B322D2216AEB800D0B5F2 /* MDRouterBind.m in Sources */ = {isa = PBXBuildFile; fileRef = C68B322B2216AEB800D0B5F2 /* MDRouterBind.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,8 @@
 		08468FA01FF3752F0063068C /* MDRouterAsynchronizeSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouterAsynchronizeSolution.h; sourceTree = "<group>"; };
 		08468FA21FF392BE0063068C /* MDRouterAdapter+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MDRouterAdapter+Private.h"; sourceTree = "<group>"; };
 		08468FA41FF39BC50063068C /* MDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRouter.h; sourceTree = "<group>"; };
+		C68B322A2216AEB800D0B5F2 /* MDRouterBind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDRouterBind.h; sourceTree = "<group>"; };
+		C68B322B2216AEB800D0B5F2 /* MDRouterBind.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDRouterBind.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +244,8 @@
 				083A34BB1FE43AF7002554DE /* MDRouterSet.m */,
 				083A34B21FE43AF7002554DE /* MDRouterAdapter.h */,
 				083A34B51FE43AF7002554DE /* MDRouterAdapter.m */,
+				C68B322A2216AEB800D0B5F2 /* MDRouterBind.h */,
+				C68B322B2216AEB800D0B5F2 /* MDRouterBind.m */,
 				083A34B01FE43AF7002554DE /* MDRouterSimpleAdapter.h */,
 				083A34B71FE43AF7002554DE /* MDRouterSimpleAdapter.m */,
 				083A34C11FE43AF8002554DE /* MDRouterUndirectionalAdapter.h */,
@@ -305,6 +311,7 @@
 				08468F901FF36A830063068C /* UIViewController+MDRouterSolution.h in Headers */,
 				083A34D01FE43AF8002554DE /* MDRouterConstants.h in Headers */,
 				083A34C41FE43AF8002554DE /* MDRouterAdapter.h in Headers */,
+				C68B322C2216AEB800D0B5F2 /* MDRouterBind.h in Headers */,
 				0834E9731FF5F7C0006B6D5A /* MDRouterAsynchronizeClassSolution.h in Headers */,
 				08468F8C1FF366960063068C /* NSSet+MDRouter.h in Headers */,
 				08468FA31FF392BF0063068C /* MDRouterAdapter+Private.h in Headers */,
@@ -503,6 +510,7 @@
 				083A34C91FE43AF8002554DE /* MDRouterSimpleAdapter.m in Sources */,
 				083A34C71FE43AF8002554DE /* MDRouterAdapter.m in Sources */,
 				083A34C51FE43AF8002554DE /* MDRouterUndirectionalAdapter.m in Sources */,
+				C68B322D2216AEB800D0B5F2 /* MDRouterBind.m in Sources */,
 				083A34CD1FE43AF8002554DE /* MDRouterSet.m in Sources */,
 				08468F851FF364D70063068C /* MDRouterSolutionContainer.m in Sources */,
 				083A34C31FE43AF8002554DE /* MDRouterWebsiteAdapter.m in Sources */,

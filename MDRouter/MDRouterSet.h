@@ -11,10 +11,6 @@
 
 extern NSString * const MDRouterErrorDomain;
 
-/**
-*   Protocol scheme://host:port/path?query
-**/
-
 @class MDRouterSolution;
 @interface MDRouterSet : MDRouterAdapter
 
@@ -37,5 +33,8 @@ extern NSString * const MDRouterErrorDomain;
 
 + (instancetype)router;
 + (instancetype)routerWithBaseURL:(NSURL *)baseURL;
++ (instancetype)routerWithBaseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue;
+
+- (void)async:(void (^)(id<MDRouterAdapter> router))block;
 
 @end

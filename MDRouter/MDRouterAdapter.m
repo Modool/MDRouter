@@ -11,6 +11,7 @@
 #import "MDRouterSolutionContainer.h"
 
 #import "MDRouterConstants.h"
+#import <pthread.h>
 
 @implementation MDRouterAdapter
 
@@ -71,39 +72,38 @@
     return YES;
 }
 
-- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
+- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error  queueLabel:(const char *)queueLabel {
     NSArray<MDRouterSolutionItem *> *solutionItems = [[self solutionContainer] solutionItemsWithURL:URL];
     if (!solutionItems || ![solutionItems count]) return NO;
     
     if ([solutionItems count] == 1) {
-        NSError *innerError = nil;
-        id result = [[solutionItems firstObject] invokeWithArguments:arguments error:&innerError];
-        
-        if (output) *output = result;
-        if (innerError && error) *error = innerError;
-        
+        MDRouterSolutionItem *item = solutionItems.firstObject;
+        __block NSError *innerError = nil;
+        dispatch_block_t block = dispatch_block_create(0, ^{
+            id result = [item invokeWithArguments:arguments error:&innerError];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wblock-capture-autoreleasing"
+            if (output) *output = result;
+            if (innerError && error) *error = innerError;
+#pragma clang diagnostic pop
+        });
+        if (strcmp(queueLabel, dispatch_queue_get_label(item.queue)) == 0) {
+            block();
+        } else {
+            dispatch_sync(item.queue, block);
+        }
+
         return innerError == nil;
     }
     
-    NSMutableArray *results = [NSMutableArray new];
-    NSMutableArray<NSError *> *errors = [NSMutableArray new];
     for (MDRouterSolutionItem *solutionItem in solutionItems) {
-        NSError *innerError = nil;
-        id result = [solutionItem invokeWithArguments:arguments error:&innerError];
+        __block NSError *innerError = nil;
+        dispatch_block_t block = ^{
+            [solutionItem invokeWithArguments:arguments error:&innerError];
+        };
         
-        [results addObject:result ?: [NSNull null]];
-        if (innerError) [errors addObject:innerError];
+        dispatch_async(solutionItem.queue, block);
     }
-    
-    if (output) *output = results;
-    if (error) {
-        if ([errors count] > 1) {
-            *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeHandleFailed userInfo:@{NSUnderlyingErrorKey: errors}];
-        } else if ([errors count]) {
-            *error = [errors firstObject];
-        }
-    }
-    
     return YES;
 }
 
@@ -149,14 +149,18 @@
     [[self mutableAdapters] removeObject:adapter];
 }
 
-- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
+- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL {
+    [self addSolution:solution baseURL:baseURL queue:dispatch_get_main_queue()];
+}
+
+- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue {
     NSParameterAssert(baseURL && solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
     
     id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
     if (adapter) {
-        [adapter addSolution:solution baseURL:baseURL];
+        [adapter addSolution:solution baseURL:baseURL queue:queue];
     } else {
-        [[self solutionContainer] addSolution:solution forBaseURL:baseURL];
+        [[self solutionContainer] addSolution:solution forBaseURL:baseURL queue:queue];
     }
 }
 
@@ -166,8 +170,10 @@
     id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
     BOOL state = NO;
     if (adapter) state = [adapter removeSolution:solution baseURL:baseURL];
-
-    return state || [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
+    
+    if (state) return state;
+    state = [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
+    return state;
 }
 
 - (BOOL)canOpenURL:(NSURL *)URL;{
@@ -196,15 +202,19 @@
 }
 
 - (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
+    return [self openURL:URL arguments:arguments output:output error:error queueLabel:NULL];
+}
+
+- (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel {
     NSParameterAssert(URL);
     
     if (![self _validateURL:URL]) return NO;
     
-    BOOL state = [self _handleSolutionWithURL:URL arguments:arguments output:output error:error];
+    BOOL state = [self _handleSolutionWithURL:URL arguments:arguments output:output error:error queueLabel:queueLabel];
     if (state) return YES;
     
     for (id<MDRouterAdapter> adapter in [self adapters]) {
-        BOOL state = [adapter openURL:URL arguments:arguments output:output error:error];
+        BOOL state = [adapter openURL:URL arguments:arguments output:output error:error queueLabel:queueLabel];
         
         if (state) return YES;
     }

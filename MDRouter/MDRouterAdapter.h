@@ -37,6 +37,7 @@
  @param baseURL base URL matched by adatpers.
  */
 - (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
+- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue;
 
 /**
  Remove solution.
@@ -115,6 +116,7 @@
  */
 - (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error key:(NSString *)key arguments:(va_list)arguments;
 
+- (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
 @end
 
 // Default class for MDRouterAdapter protocol.

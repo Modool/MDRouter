@@ -6,6 +6,7 @@
 //  Copyright © 2017年 markejave. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "MDAppDelegate.h"
 
 @interface MDAppDelegate ()
@@ -36,6 +37,8 @@
         }];
         
         [_router addAdapter:undirectionalAdapter];
+        
+        [[MDRouterBind instanceWithRouter:_router] bind];
     }
     return _router;
 }
