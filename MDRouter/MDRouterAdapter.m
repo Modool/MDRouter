@@ -15,15 +15,15 @@
 
 @implementation MDRouterAdapter
 
-+ (instancetype)adapter;{
++ (instancetype)adapter {
     return [self adapterWithBaseURL:nil];
 }
 
-+ (instancetype)adapterWithBaseURL:(NSURL *)baseURL;{
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL {
     return [[self alloc] initWithBaseURL:baseURL];
 }
 
-- (instancetype)initWithBaseURL:(NSURL *)baseURL;{
+- (instancetype)initWithBaseURL:(NSURL *)baseURL {
     if (self = [super init]) {
         self.baseURL = baseURL;
         
@@ -54,7 +54,7 @@
 
 #pragma mark - private
 
-- (BOOL)_validateURL:(NSURL *)URL;{
+- (BOOL)_validateURL:(NSURL *)URL {
     if (![[URL scheme] isEqualToString:[[self baseURL] scheme]]) return NO;
     if (![[URL host] isEqualToString:[[self baseURL] host]]) return NO;
     
@@ -107,7 +107,7 @@
     return YES;
 }
 
-- (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
+- (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error {
     return NO;
 }
 
@@ -138,14 +138,14 @@
 
 #pragma mark - public
 
-- (void)addAdapter:(id<MDRouterAdapter>)adapter;{
+- (void)addAdapter:(id<MDRouterAdapter>)adapter {
     NSParameterAssert(adapter);
     NSParameterAssert(![[self mutableAdapters] containsObject:adapter]);
     
     [[self mutableAdapters] addObject:adapter];
 }
 
-- (void)removeAdapter:(id<MDRouterAdapter>)adapter;{
+- (void)removeAdapter:(id<MDRouterAdapter>)adapter {
     [[self mutableAdapters] removeObject:adapter];
 }
 
@@ -164,7 +164,7 @@
     }
 }
 
-- (BOOL)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;{
+- (BOOL)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL {
     NSParameterAssert(baseURL && solution && [solution conformsToProtocol:@protocol(MDRouterSolution)]);
     
     id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
@@ -176,7 +176,7 @@
     return state;
 }
 
-- (BOOL)canOpenURL:(NSURL *)URL;{
+- (BOOL)canOpenURL:(NSURL *)URL {
     for (id<MDRouterAdapter> adapter in [self adapters]) {
         if ([adapter canOpenURL:URL]) return YES;
     }
@@ -186,22 +186,22 @@
     return NO;
 }
 
-- (BOOL)openURL:(NSURL *)URL;{
+- (BOOL)openURL:(NSURL *)URL {
     NSParameterAssert(URL);
     return [self openURL:URL error:NULL];
 }
 
-- (BOOL)openURL:(NSURL *)URL error:(NSError **)error;{
+- (BOOL)openURL:(NSURL *)URL error:(NSError **)error {
     NSParameterAssert(URL);
     return [self openURL:URL arguments:nil output:NULL error:error];
 }
 
-- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error;{
+- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error {
     NSParameterAssert(URL);
     return [self openURL:URL arguments:nil output:output error:error];
 }
 
-- (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;{
+- (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error {
     return [self openURL:URL arguments:arguments output:output error:error queueLabel:NULL];
 }
 
@@ -222,7 +222,7 @@
     return [self _handleURL:URL arguments:arguments output:output error:error];
 }
 
-- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error arguments:(id)key, ...;{
+- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error arguments:(id)key, ... {
     NSParameterAssert(URL);
     BOOL result = NO;
     va_list arguments;
@@ -234,7 +234,7 @@
     return result;
 }
 
-- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error key:(NSString *)key arguments:(va_list)arguments;{
+- (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error key:(NSString *)key arguments:(va_list)arguments {
     NSParameterAssert(URL);
     NSMutableDictionary *dictionary = [NSMutableDictionary new];
     NSInteger index = 0;

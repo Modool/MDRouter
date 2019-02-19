@@ -29,11 +29,11 @@ NSString * const MDRouterErrorDomain    = @"com.bilibili.link.router.error.domai
 @implementation MDRouterSet
 @dynamic baseURL;
 
-+ (instancetype)router;{
++ (instancetype)router {
     return [self routerWithBaseURL:nil];
 }
 
-+ (instancetype)routerWithBaseURL:(NSURL *)baseURL;{
++ (instancetype)routerWithBaseURL:(NSURL *)baseURL {
     return [[self alloc] initWithBaseURL:baseURL queue:nil];
 }
 

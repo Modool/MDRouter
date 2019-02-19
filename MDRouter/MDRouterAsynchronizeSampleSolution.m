@@ -24,12 +24,12 @@
     return nil;
 }
 
-+ (instancetype)solutionWithBlock:(void (^)(void (^)(id<MDRouterSolution> solution)))block;{
++ (instancetype)solutionWithBlock:(void (^)(void (^)(id<MDRouterSolution> solution)))block {
     NSParameterAssert(block);
     return [[self alloc] initWithBlock:block];
 }
 
-- (instancetype)initWithBlock:(void (^)(void (^)(id<MDRouterSolution> solution)))block;{
+- (instancetype)initWithBlock:(void (^)(void (^)(id<MDRouterSolution> solution)))block {
     NSParameterAssert(block);
     if (self = [super init]) {
         self.block = block;
@@ -37,7 +37,7 @@
     return self;
 }
 
-- (BOOL)invokeAsynchronizedArguments:(NSDictionary *)arguments error:(NSError **)error completion:(void (^)(id<MDRouterSolution> solution))completion;{
+- (BOOL)invokeAsynchronizedArguments:(NSDictionary *)arguments error:(NSError **)error completion:(void (^)(id<MDRouterSolution> solution))completion {
     if ([self block]) self.block(completion);
     else {
         if (error) *error = [NSError errorWithDomain:MDRouterErrorDomain code:MDRouterErrorCodeAsynchronizedHandleFailed userInfo:@{NSLocalizedDescriptionKey: @"Failed to invoke asynchronized solution because of non block handler"} underlyingError:*error];

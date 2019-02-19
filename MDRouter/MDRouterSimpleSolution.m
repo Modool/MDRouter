@@ -20,12 +20,12 @@
 
 @implementation MDRouterSimpleSolution
 
-+ (instancetype)solutionWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
++ (instancetype)solutionWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block {
     NSParameterAssert(block);
     return [[self alloc] initWithBlock:block];
 }
 
-- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block;{
+- (instancetype)initWithBlock:(id (^)(NSDictionary *arguments, NSError **error))block {
     NSParameterAssert(block);
     if (self = [super init]) {
         self.block = block;
@@ -33,12 +33,12 @@
     return self;
 }
 
-+ (instancetype)solutionWithTarget:(id)target action:(SEL)action;{
++ (instancetype)solutionWithTarget:(id)target action:(SEL)action {
     NSParameterAssert(target && action);
     return [[self alloc] solutionWithTarget:target action:action];
 }
 
-- (instancetype)initWithTarget:(id)target action:(SEL)action;{
+- (instancetype)initWithTarget:(id)target action:(SEL)action {
     NSParameterAssert(target && action);
     if (self = [super init]) {
         self.target = target;
@@ -47,7 +47,7 @@
     return self;
 }
 
-- (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError **)error;{
+- (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError **)error {
     if ([self target] && [self action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"

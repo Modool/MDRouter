@@ -20,18 +20,18 @@
 
 @implementation MDRouterSimpleAdapter
 
-+ (instancetype)adapterWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block {
     return [[self alloc] initWithBaseURL:baseURL block:block];
 }
 
-- (instancetype)initWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;{
+- (instancetype)initWithBaseURL:(NSURL *)baseURL block:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block {
     if (self = [super initWithBaseURL:baseURL]) {
         self.block = block;
     }
     return self;
 }
 
-+ (instancetype)adapterWithBaseURL:(NSURL *)baseURL return:(id)value;{
++ (instancetype)adapterWithBaseURL:(NSURL *)baseURL return:(id)value {
     return [self adapterWithBaseURL:baseURL block:^id(NSURL *URL, NSDictionary *arguments, NSError **error) {
         return value;
     }];

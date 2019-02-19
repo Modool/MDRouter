@@ -23,11 +23,11 @@ NSString * MDRouterSolutionItemAnimatedKey = @"animated";
     return nil;
 }
 
-+ (UIViewController *)viewControllerWithArguments:(NSDictionary *)arguments outputArguments:(NSDictionary **)outputArguments error:(NSError **)error;{
++ (UIViewController *)viewControllerWithArguments:(NSDictionary *)arguments outputArguments:(NSDictionary **)outputArguments error:(NSError **)error {
     return [[self alloc] init];
 }
 
-+ (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError **)error;{
++ (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError **)error {
     NSDictionary *outputArguments = arguments ? [arguments copy] : nil;
     UIViewController *viewController = [self viewControllerWithArguments:arguments outputArguments:&outputArguments error:error];
     
@@ -44,7 +44,7 @@ NSString * MDRouterSolutionItemAnimatedKey = @"animated";
     return nil;
 }
 
-+ (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated error:(NSError **)error;{
++ (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated error:(NSError **)error {
     UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     UINavigationController *navigationController = [rootViewController isKindOfClass:[UINavigationController class]] ? (id)rootViewController : [viewController navigationController];
     if ([navigationController isKindOfClass:[UINavigationController class]]) {
@@ -54,7 +54,7 @@ NSString * MDRouterSolutionItemAnimatedKey = @"animated";
     }
 }
 
-+ (void)presentViewController:(UIViewController *)viewController animated:(BOOL)animated error:(NSError **)error;{
++ (void)presentViewController:(UIViewController *)viewController animated:(BOOL)animated error:(NSError **)error {
     UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     if (rootViewController && ![rootViewController presentedViewController]) {
         [rootViewController presentViewController:viewController animated:animated completion:nil];
