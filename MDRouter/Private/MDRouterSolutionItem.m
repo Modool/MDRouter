@@ -30,20 +30,31 @@
 }
 
 - (instancetype)initWithBaseURL:(NSURL *)baseURL solution:(id<MDRouterSolution>)solution;{
+    return [self initWithBaseURL:baseURL solution:solution queue:dispatch_get_main_queue()];
+}
+
+- (instancetype)initWithBaseURL:(NSURL *)baseURL solution:(id<MDRouterSolution>)solution queue:(dispatch_queue_t)queue {
     NSParameterAssert(solution && baseURL);
     
     if (self = [super init]) {
         self.baseURL = baseURL;
         self.solution = solution;
+        _queue = queue;
     }
     return self;
+}
+
++ (instancetype)solutionItemWithBaseURL:(NSURL *)baseURL solution:(id<MDRouterSolution>)solution queue:(dispatch_queue_t)queue {
+    NSParameterAssert(solution && baseURL);
+    return [[self alloc] initWithBaseURL:baseURL solution:solution queue:queue];
 }
 
 - (BOOL)validatBaseURL:(NSURL *)baseURL;{
     if (![[baseURL scheme] isEqualToString:[[self baseURL] scheme]]) return NO;
     if (![[baseURL host] isEqualToString:[[self baseURL] host]]) return NO;
     
-    return [[baseURL path] hasPrefix:[[self baseURL] path]];
+    BOOL result = [[baseURL path] isEqual:[[self baseURL] path]];
+    return result;
 }
 
 - (id)invokeWithArguments:(NSDictionary *)arguments error:(NSError **)error{

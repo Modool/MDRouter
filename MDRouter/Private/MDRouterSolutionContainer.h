@@ -13,7 +13,7 @@
 - (NSArray<MDRouterSolutionItem *> *)solutionItemsWithURL:(NSURL *)URL;
 - (MDRouterSolutionItem *)solutionItemWithSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
 
-- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;
+- (BOOL)addSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue;
 - (BOOL)removeSolution:(id<MDRouterSolution>)solution forBaseURL:(NSURL *)baseURL;
 
 @end
