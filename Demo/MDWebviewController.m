@@ -45,7 +45,6 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;{
-    
     BOOL canOpenURL = [[MDSharedAppDelegate router] canOpenURL:[[navigationAction request] URL]];
     if (canOpenURL) {
         id output = nil;

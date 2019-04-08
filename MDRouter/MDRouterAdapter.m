@@ -14,6 +14,7 @@
 #import <pthread.h>
 
 @implementation MDRouterAdapter
+@synthesize baseURL = _baseURL;
 
 + (instancetype)adapter {
     return [self adapterWithBaseURL:nil];
@@ -25,10 +26,9 @@
 
 - (instancetype)initWithBaseURL:(NSURL *)baseURL {
     if (self = [super init]) {
-        self.baseURL = baseURL;
-        
-        self.mutableAdapters = [NSMutableArray<MDRouterAdapter> new];
-        self.solutionContainer = [MDRouterSolutionContainer new];
+        _baseURL = baseURL;
+        _mutableAdapters = [NSMutableArray<MDRouterAdapter> new];
+        _solutionContainer = [MDRouterSolutionContainer new];
     }
     return self;
 }
@@ -40,7 +40,7 @@
 #pragma mark - accessor
 
 - (NSArray<MDRouterAdapter> *)adapters{
-    return [[self mutableAdapters] copy];
+    return [_mutableAdapters copy];
 }
 
 - (id<MDRouterAdapter>)adapterWithBaseURL:(NSURL *)baseURL{
@@ -72,8 +72,8 @@
     return YES;
 }
 
-- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error  queueLabel:(const char *)queueLabel {
-    NSArray<MDRouterSolutionItem *> *solutionItems = [[self solutionContainer] solutionItemsWithURL:URL];
+- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel {
+    NSArray<MDRouterSolutionItem *> *solutionItems = [_solutionContainer solutionItemsWithURL:URL];
     if (!solutionItems || ![solutionItems count]) return NO;
     
     if ([solutionItems count] == 1) {
@@ -140,13 +140,13 @@
 
 - (void)addAdapter:(id<MDRouterAdapter>)adapter {
     NSParameterAssert(adapter);
-    NSParameterAssert(![[self mutableAdapters] containsObject:adapter]);
+    NSParameterAssert(![_mutableAdapters containsObject:adapter]);
     
-    [[self mutableAdapters] addObject:adapter];
+    [_mutableAdapters addObject:adapter];
 }
 
 - (void)removeAdapter:(id<MDRouterAdapter>)adapter {
-    [[self mutableAdapters] removeObject:adapter];
+    [_mutableAdapters removeObject:adapter];
 }
 
 - (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL {
@@ -160,7 +160,7 @@
     if (adapter) {
         [adapter addSolution:solution baseURL:baseURL queue:queue];
     } else {
-        [[self solutionContainer] addSolution:solution forBaseURL:baseURL queue:queue];
+        [_solutionContainer addSolution:solution forBaseURL:baseURL queue:queue];
     }
 }
 
@@ -170,10 +170,9 @@
     id<MDRouterAdapter> adapter = [self adapterWithBaseURL:baseURL];
     BOOL state = NO;
     if (adapter) state = [adapter removeSolution:solution baseURL:baseURL];
-    
     if (state) return state;
-    state = [[self solutionContainer] removeSolution:solution forBaseURL:baseURL];
-    return state;
+
+    return [_solutionContainer removeSolution:solution forBaseURL:baseURL];
 }
 
 - (BOOL)canOpenURL:(NSURL *)URL {

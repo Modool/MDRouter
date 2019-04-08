@@ -9,20 +9,15 @@
 #import "MDRouterAdapter.h"
 
 @class MDRouterSolutionContainer;
-@interface MDRouterAdapter ()
+@interface MDRouterAdapter () {
+    NSMutableArray<id<MDRouterAdapter>> *_mutableAdapters;
 
-@property (nonatomic, copy) NSURL *baseURL;
-
-@property (nonatomic, strong) NSMutableArray<MDRouterAdapter> *mutableAdapters;
-
-@property (nonatomic, strong) MDRouterSolutionContainer *solutionContainer;
-
-@end
-@interface MDRouterAdapter (Private)
+    MDRouterSolutionContainer *_solutionContainer;
+}
 
 - (BOOL)_validateURL:(NSURL *)URL;
 
-- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error  queueLabel:(const char *)queueLabel synchronized:(BOOL)synchronized;
+- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;
 
 - (NSDictionary *)_argumentsWithURL:(NSURL *)URL baseArguments:(NSDictionary *)baseArguments;

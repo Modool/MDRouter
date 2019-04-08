@@ -1,5 +1,5 @@
 //
-//  MDRouterBind.h
+//  MDRouterBinder.h
 //  MDRouter
 //
 //  Created by 张征鸿 on 2019/2/15.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MDRouterBind : NSObject {
+@interface MDRouterBinder : NSObject {
     MDRouterSet *_router;
 }
 
@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#define MDRouterSolutionClassBindPrefix @"MDRouterBind_bind_"
+#define MDRouterSolutionClassBindPrefix @"MDRouterBinder_bind_"
 
 #define MDRouterSolutionClassBind(CLASS, BASE_URL_STRING)   \
-@implementation MDRouterBind (CLASS)                            \
+@implementation MDRouterBinder (CLASS)                            \
 - (void)MDRouterBind_bind_##CLASS {                              \
     static dispatch_once_t onceToken;                   \
     dispatch_once(&onceToken, ^{                        \
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #define MDRouterSolutionClassBindQueue(CLASS, BASE_URL_STRING, TARGET_QUEUE)   \
-@implementation MDRouterBind (CLASS)                            \
+@implementation MDRouterBinder (CLASS)                            \
 - (void)MDRouterBind_bind_##CLASS {                              \
     static dispatch_once_t onceToken;                   \
     dispatch_once(&onceToken, ^{                        \

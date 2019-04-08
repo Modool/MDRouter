@@ -19,7 +19,7 @@ FOUNDATION_EXPORT const unsigned char MDRouterVersionString[];
 #import <Foundation/Foundation.h>
 
 #import "MDRouterSet.h"
-#import "MDRouterBind.h"
+#import "MDRouterBinder.h"
 
 #import "MDRouterAdapter.h"
 #import "MDRouterSimpleAdapter.h"

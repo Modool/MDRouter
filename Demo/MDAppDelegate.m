@@ -38,7 +38,7 @@
         
         [_router addAdapter:undirectionalAdapter];
         
-        [[MDRouterBind instanceWithRouter:_router] bind];
+        [[MDRouterBinder instanceWithRouter:_router] bind];
     }
     return _router;
 }
