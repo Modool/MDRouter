@@ -1,45 +1,41 @@
 //
-//  UIViewController+MDRouterSolution.m
+//  UIViewController+MDRouterInvocation.m
 //  MDRouter
 //
 //  Created by Jave on 2017/12/27.
 //  Copyright © 2017年 Modool. All rights reserved.
 //
 
-#import "UIViewController+MDRouterSolution.h"
+#import "UIViewController+MDRouterInvocation.h"
 #import "MDRouterConstants.h"
 
-NSString * MDRouterSolutionItemPushKey = @"push";
-NSString * MDRouterSolutionItemAnimatedKey = @"animated";
+NSString * MDRouterInvocationPushKey = @"pushing";
+NSString * MDRouterInvocationAnimatedKey = @"animated";
 
-@implementation UIViewController (MDRouterSolution)
+@implementation UIViewController (MDRouterInvocation)
 
 + (NSDictionary<NSString *,NSNumber *> *)argumentConditions{
-    return @{MDRouterSolutionItemPushKey: @NO,
-             MDRouterSolutionItemAnimatedKey: @NO};
-}
-
-- (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError *__autoreleasing *)error {
-    return nil;
+    return @{MDRouterInvocationPushKey: @NO,
+             MDRouterInvocationAnimatedKey: @NO};
 }
 
 + (UIViewController *)viewControllerWithArguments:(NSDictionary *)arguments outputArguments:(NSDictionary **)outputArguments error:(NSError **)error {
     return [[self alloc] init];
 }
 
-+ (id)invokeWithRouterArguments:(NSDictionary *)arguments error:(NSError **)error {
++ (id)invokeWithArguments:(NSDictionary *)arguments error:(NSError **)errorPtr {
     NSDictionary *outputArguments = arguments ? [arguments copy] : nil;
-    UIViewController *viewController = [self viewControllerWithArguments:arguments outputArguments:&outputArguments error:error];
+    UIViewController *viewController = [self viewControllerWithArguments:arguments outputArguments:&outputArguments error:errorPtr];
     
     if (!viewController) return nil;
     if (outputArguments) arguments = outputArguments;
     
-    BOOL push = arguments[MDRouterSolutionItemPushKey] ? [arguments[MDRouterSolutionItemPushKey] boolValue] : YES;
-    BOOL animated = arguments[MDRouterSolutionItemAnimatedKey] ? [arguments[MDRouterSolutionItemAnimatedKey] boolValue] : YES;
+    BOOL push = arguments[MDRouterInvocationPushKey] ? [arguments[MDRouterInvocationPushKey] boolValue] : YES;
+    BOOL animated = arguments[MDRouterInvocationAnimatedKey] ? [arguments[MDRouterInvocationAnimatedKey] boolValue] : YES;
     if (push) {
-        [self pushViewController:viewController animated:animated error:error];
+        [self pushViewController:viewController animated:animated error:errorPtr];
     } else {
-        [self presentViewController:viewController animated:animated error:error];
+        [self presentViewController:viewController animated:animated error:errorPtr];
     }
     return nil;
 }

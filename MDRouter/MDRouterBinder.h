@@ -6,48 +6,35 @@
 //  Copyright © 2019 markejave. All rights reserved.
 //
 
-#import "MDRouterSet.h"
+#import "MDRouterImp.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MDRouterBinder : NSObject {
-    MDRouterSet *_router;
-}
+@interface MDRouterBinder : NSObject
 
-+ (instancetype)instanceWithRouter:(MDRouterSet *)router;
-
-- (void)bindSolution:(id)solution baseURLString:(NSString *)baseURLString;
-- (void)bindSolution:(id)solution baseURLString:(NSString *)baseURLString targetQueue:(dispatch_queue_t)targetQueue;
-
-- (void)bind;
+- (void)invokeTarget:(id)target action:(SEL)action baseURLString:(NSString *)baseURLString;
+- (void)invokeTarget:(id)target action:(SEL)action targetQueue:(dispatch_queue_t)targetQueue baseURLString:(NSString *)baseURLString, ...;
 
 @end
 
-#define MDRouterSolutionClassBindPrefix @"MDRouterBinder_bind_"
 
-#define MDRouterSolutionClassBind(CLASS, BASE_URL_STRING)   \
-@implementation MDRouterBinder (CLASS)                            \
-- (void)MDRouterBind_bind_##CLASS {                              \
-    static dispatch_once_t onceToken;                   \
-    dispatch_once(&onceToken, ^{                        \
-        dispatch_async(dispatch_get_main_queue(), ^{    \
-            [self bindSolution:(id)[CLASS class] baseURLString:BASE_URL_STRING]; \
-        });                                             \
-    });                                                 \
-}                                                       \
+#define MDRouterBinderClassMethodPrefix             MDRouterBinder_bind_
+#define MDRouterBinderClassMethodPrefixString       @"MDRouterBinder_bind_"
+
+#define MDRouterTargetBind(CLASS, SELECTOR_FLAG, SELECTOR, TARGET_QUEUE, BASE_URL_STRING, ...)                                          \
+@implementation MDRouterBinder (CLASS##SELECTOR_FLAG)                                                                                   \
+- (void)MDRouterBinder_bind_##CLASS##SELECTOR_FLAG {                                                                                    \
+    static dispatch_once_t onceToken;                                                                                                   \
+    dispatch_once(&onceToken, ^{                                                                                                        \
+        dispatch_async(dispatch_get_main_queue(), ^{                                                                                    \
+            [self invokeTarget:(id)[CLASS class] action:SELECTOR targetQueue:TARGET_QUEUE baseURLString:BASE_URL_STRING, ##__VA_ARGS__];\
+        });                                                                                                                             \
+    });                                                                                                                                 \
+}                                                                                                                                       \
 @end
 
-
-#define MDRouterSolutionClassBindQueue(CLASS, BASE_URL_STRING, TARGET_QUEUE)   \
-@implementation MDRouterBinder (CLASS)                            \
-- (void)MDRouterBind_bind_##CLASS {                              \
-    static dispatch_once_t onceToken;                   \
-    dispatch_once(&onceToken, ^{                        \
-        dispatch_async(dispatch_get_main_queue(), ^{    \
-            [self bindSolution:(id)[CLASS class] baseURLString:BASE_URL_STRING targetQueue:TARGET_QUEUE]; \
-        });                                             \
-    });                                                 \
-}                                                       \
-@end
+#define MDRouterTargetBindDefaultQueue(CLASS, SELECTOR_FLAG, SELECTOR, BASE_URL_STRING, ...)      MDRouterTargetBind(CLASS, SELECTOR_FLAG, SELECTOR, dispatch_get_main_queue(), BASE_URL_STRING, ##__VA_ARGS__, nil)
+#define MDRouterTargetBindDefaultSelector(CLASS, BASE_URL_STRING, ...)                            MDRouterTargetBindDefaultQueue(CLASS, invokeWithArguments_error, @selector(invokeWithArguments:error:), BASE_URL_STRING, ##__VA_ARGS__, nil)
+#define MDRouterTargetBindViewController(CLASS, BASE_URL_STRING, ...)                             MDRouterTargetBindDefaultSelector(CLASS, BASE_URL_STRING, ##__VA_ARGS__, nil)
 
 NS_ASSUME_NONNULL_END

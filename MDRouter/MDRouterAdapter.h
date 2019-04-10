@@ -8,122 +8,136 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MDRouterSolution;
-
-// Protocol for adapter
-@protocol MDRouterAdapter
+@class MDRouterInvocation;
+@interface MDRouterAdapter : NSObject
 
 // The base URL of whole URL.
 @property (nonatomic, copy, readonly) NSURL *baseURL;
+
+// Sub adapters with the same base URL.
+@property (nonatomic, copy, readonly) NSArray<MDRouterAdapter *> *adapters;
 
 /**
  Add sub adapter.
 
  @param adapter instance of MDRouterAdapter protocol.
  */
-- (void)addAdapter:(id<MDRouterAdapter>)adapter;
+- (void)addAdapter:(MDRouterAdapter *)adapter;
 
 /**
  Remove sub adapter.
- 
+
  @param adapter instance of MDRouterAdapter protocol.
  */
-- (void)removeAdapter:(id<MDRouterAdapter>)adapter;
+- (void)removeAdapter:(MDRouterAdapter *)adapter;
 
 /**
- Add solution.
+ Add invocation.
 
- @param solution instance of MDRouterSolution protocol.
- @param baseURL base URL matched by adatpers.
+ @param invocation invocation to invoke.
  */
-- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
-- (void)addSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue;
+- (BOOL)addInvocation:(MDRouterInvocation *)invocation;
 
 /**
- Remove solution.
- 
- @param solution instance of MDRouterSolution protocol.
- @param baseURL base URL matched by adatpers.
+ Remove invocation.
+
+ @param invocation invocation to invoke.
  */
-- (BOOL)removeSolution:(id<MDRouterSolution>)solution baseURL:(NSURL *)baseURL;
+- (BOOL)removeInvocation:(MDRouterInvocation *)invocation;
 
 /**
- To verify URL whether any adapter or solution is matched.
+ Remove invocation.
+
+ @param target target of invocation to invoke.
+ @param action action of invocation to invoke.
+ @param baseURL base url of  invocation to invoke.
+ */
+- (BOOL)removeInvocationWithTarget:(id)target action:(SEL)action baseURL:(NSURL *)baseURL;
+
+/**
+ Forward base url to another base url.
+
+ @param URL the source url to forward.
+ @param toURL the destinational url to forward.
+ */
+- (BOOL)forwardURL:(NSURL *)URL toURL:(NSURL *)toURL;
+
+/**
+ Forward base url to another base url.
+
+ @param URLString the source url to forward.
+ @param toURLString the destinational url to forward.
+ */
+- (BOOL)forwardURLString:(NSString *)URLString toURLString:(NSString *)toURLString;
+
+/**
+ To verify URL whether any adapter or invocation is matched.
 
  @param URL URL to be verified.
- @return YES if any adapter of solution is matched, or NO.
+ @return YES if any adapter of invocation is matched, or NO.
  */
 - (BOOL)canOpenURL:(NSURL *)URL;
 
 /**
- Open URL to route an result if any adapter or solution is matched.
+ Open URL to route an result if any adapter or invocation is matched.
 
  @param URL whole URL with prameters to route
- @return YES if any adapter or solution is matched without any error.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL;
 
 /**
- Open URL to route an result if any adapter or solution is matched.
- 
+ Open URL to route an result if any adapter or invocation is matched.
+
  @param URL whole URL with prameters to route.
  @param error output error if open URL failed.
- @return YES if any adapter or solution is matched without any error.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL error:(NSError **)error;
 
 /**
- Open URL to route an result if any adapter or solution is matched.
- 
+ Open URL to route an result if any adapter or invocation is matched.
+
  @param URL whole URL with prameters to route.
  @param output output userinfo if open URL successfully.
  @param error output error if open URL failed.
- @return YES if any adapter or solution is matched without any error.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error;
 
 /**
- Open URL to route an result if any adapter or solution is matched.
- 
+ Open URL to route an result if any adapter or invocation is matched.
+
  @param URL whole URL with prameters to route.
- @param arguments input arguments for adapter or solution.
+ @param arguments input arguments for adapter or invocation.
  @param output output userinfo if open URL successfully.
  @param error output error if open URL failed.
- @return YES if any adapter or solution is matched without any error.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;
 
 /**
- Open URL with omit arguments to route an result if any adapter or solution is matched.
- 
+ Open URL with omit arguments to route an result if any adapter or invocation is matched.
+
  @param URL whole URL with prameters to route.
  @param output output userinfo if open URL successfully.
  @param error output error if open URL failed.
- @param key first argument for adapter or solution.
- @return YES if any adapter or solution is matched without any error.
+ @param key first argument for adapter or invocation.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error arguments:(NSString *)key, ...;
 
 /**
- Open URL with arguments list to route an result if any adapter or solution is matched.
- 
+ Open URL with arguments list to route an result if any adapter or invocation is matched.
+
  @param URL whole URL with prameters to route.
  @param output output userinfo if open URL successfully.
  @param error output error if open URL failed.
  @param key first item for argument list.
- @param arguments arguments list for adapter or solution.
- @return YES if any adapter or solution is matched without any error.
+ @param arguments arguments list for adapter or invocation.
+ @return YES if any adapter or invocation is matched without any error.
  */
 - (BOOL)openURL:(NSURL *)URL output:(id *)output error:(NSError **)error key:(NSString *)key arguments:(va_list)arguments;
-
-- (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
-@end
-
-// Default class for MDRouterAdapter protocol.
-@interface MDRouterAdapter : NSObject<MDRouterAdapter>
-
-// Sub adapters with the same base URL.
-@property (nonatomic, copy, readonly) NSArray<MDRouterAdapter> *adapters;
 
 /**
  Default instance of MDRouterAdapter.

@@ -11,34 +11,36 @@
 
 @interface MDAppDelegate ()
 
-@property (strong, nonatomic) MDRouterSet *router;
+@property (strong, nonatomic) MDRouter *router;
 
 @end
 
 @implementation MDAppDelegate
 
-- (MDRouterSet *)router{
+- (MDRouter *)router{
     if (!_router) {
-        _router = [MDRouterSet router];
-        _router.validSchemes = [NSSet setWithObjects:@"router", @"http", @"https", nil];
-        _router.validHosts = [NSSet setWithObjects:@"www.github.com", @"github.com", nil];
-        
+        _router = [MDRouter router];
+//        _router.validSchemes = [NSSet setWithObjects:@"router", @"http", @"https", @"method", nil];
+//        _router.validHosts = [NSSet setWithObjects:@"www.github.com", @"github.com", @"modool", @"invoke", nil];
+
         MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
-            
             return nil;
         }];
         [_router addAdapter:websiteAdapter];
         
         MDRouterUndirectionalAdapter *undirectionalAdapter = [MDRouterUndirectionalAdapter adapterWithBlock:^id(NSURL *URL, NSDictionary *arguments, NSError *__autoreleasing *error) {
-            NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-            components.scheme = @"http";
-            [_router openURL:[components URL] arguments:arguments output:NULL error:NULL];
+            NSLog(@"undirectional url: %@", URL);
             return nil;
         }];
         
         [_router addAdapter:undirectionalAdapter];
-        
-        [[MDRouterBinder instanceWithRouter:_router] bind];
+        [_router forwardURLString:@"modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+        [_router forwardURLString:@"router://modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+        [_router forwardURLString:@"router://www.github.com/modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+//        [_router forwardURLString:@"Method://transit" toURLString:@"router://www.github.com/modool/transition"];
+        [_router forwardURLString:@"invocation://live/transit" toURLString:@"router://www.github.com/modool/transition"];
+
+        [_router addProtocol:@protocol(MDRouterViewControllerMethods)];
     }
     return _router;
 }

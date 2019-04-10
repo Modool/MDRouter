@@ -16,7 +16,7 @@
 /**
  Instance of MDRouterWebsiteAdapter with block handler.
  
- @param block a block to route if scheme of any adapter or solution is http or https.
+ @param block a block to route if scheme of any adapter or invocation is http or https.
  @return instance of MDRouterWebsiteAdapter
  */
 + (instancetype)adapterWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;
@@ -24,7 +24,7 @@
 /**
  Initialization of MDRouterWebsiteAdapter with block handler.
  
- @param block a block to route if scheme of any adapter or solution is http or https.
+ @param block a block to route if scheme of any adapter or invocation is http or https.
  @return instance of MDRouterWebsiteAdapter
  */
 - (instancetype)initWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block;

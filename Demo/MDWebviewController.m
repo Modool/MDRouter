@@ -59,7 +59,7 @@
         NSString *javascript = [NSString stringWithFormat:@"%@('%@', '%@', %ld, '%@')", callback, [[[navigationAction request] URL] absoluteString], output ?: @"success", [error code], [error description]];
         
         [webView evaluateJavaScript:javascript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            
+
         }];
     } else {
         decisionHandler(WKNavigationActionPolicyAllow);

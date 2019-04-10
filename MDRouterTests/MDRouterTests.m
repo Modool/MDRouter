@@ -24,7 +24,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 @interface MDRouterTests : XCTestCase
 
-@property (nonatomic, strong) MDRouterSet *router;
+@property (nonatomic, strong) MDRouter *router;
 
 @end
 
@@ -34,7 +34,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
-    self.router = [MDRouterSet router];
+    self.router = [MDRouter router];
 }
 
 - (void)tearDown {
@@ -45,7 +45,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 - (void)testFilterSchemes {
     
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addInvocation:[MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -82,7 +82,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testFilterHosts {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addInvocation:[MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -119,7 +119,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testFilterPorts {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addInvocation:[MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -146,7 +146,7 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
 
 - (void)testWebsiteAdapter {
     MDRouterWebsiteAdapter *websiteAdapter = [MDRouterWebsiteAdapter adapter];
-    [websiteAdapter addSolution:[MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    [websiteAdapter addInvocation:[MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
@@ -180,57 +180,57 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     XCTAssertEqualObjects(output, @1);
 }
 
-- (void)testSampleSolution {
-    MDRouterSimpleSolution *solution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+- (void)testSampleInvocation {
+    MDRouterBlockInvocation *invocation = [MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         return @1;
     }];
     
-    [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] addInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     id output = nil;
     BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:NULL];
     
-    [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] removeInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state);
     XCTAssertEqualObjects(output, @1);
 }
 
 - (void)testRouterErrorOuput {
-    MDRouterSimpleSolution *solution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterBlockInvocation *invocation = [MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         *error = [NSError errorWithDomain:MDRouterErrorDomain code:10000 userInfo:nil];
         return nil;
     }];
     
-    [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] addInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     NSError *error = nil;
     BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:&error];
     
-    [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] removeInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertFalse(state);
     XCTAssertTrue([error code] == 10000);
 }
 
-- (void)testAsynchronizeSampleSolution {
+- (void)testAsynchronizeSampleInvocation {
     XCTestExpectation *expectation = [self expectationWithDescription:@"success"];
-    MDRouterAsynchronizeSampleSolution *solution = [MDRouterAsynchronizeSampleSolution solutionWithBlock:^(void (^completion)(id<MDRouterSolution> solution)) {
-        MDRouterSimpleSolution *innerSolution = [MDRouterSimpleSolution solutionWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterAsynchronizeBlockInvocation *invocation = [MDRouterAsynchronizeBlockInvocation targetWithBlock:^(void (^completion)(id<MDRouterInvocation> invocation)) {
+        MDRouterBlockInvocation *innerInvocation = [MDRouterBlockInvocation targetWithBlock:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
             [expectation fulfill];
             return @1;
         }];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            completion(innerSolution);
+            completion(innerInvocation);
         });
     }];
     
-    [[self router] addSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] addInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:NULL error:NULL];
     
-    [[self router] removeSolution:solution baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] removeInvocation:invocation baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state);
     
@@ -239,28 +239,28 @@ NSString * const MDRouterTestURLString = @"https://www.github.com/Modool/Resourc
     }];
 }
 
-- (void)testPushViewControllerSolution {
-    [[self router] addSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+- (void)testPushViewControllerInvocation {
+    [[self router] addInvocation:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     id output = nil;
     NSError *error = nil;
     
     BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] output:&output error:&error];
     
-    [[self router] removeSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] removeInvocation:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state || [error code] == MDRouterErrorCodeNoVisibleNavigationController);
 }
 
-- (void)testPresentViewControllerSolution {
-    [[self router] addSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+- (void)testPresentViewControllerInvocation {
+    [[self router] addInvocation:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     id output = nil;
     NSError *error = nil;
     
-    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] arguments:@{MDRouterSolutionItemPushKey: @NO} output:&output error:&error];
+    BOOL state = [[self router] openURL:[NSURL URLWithString:MDRouterTestURLString] arguments:@{MDRouterInvocationPushKey: @NO} output:&output error:&error];
     
-    [[self router] removeSolution:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
+    [[self router] removeInvocation:(id)[MDRouterTestViewController class] baseURL:[NSURL URLWithString:MDRouterTestRootURLString]];
     
     XCTAssertTrue(state || [error code] == MDRouterErrorCodeNoVisibleViewController || [error code] == MDRouterErrorCodePresentedViewControllerExsit);
 }

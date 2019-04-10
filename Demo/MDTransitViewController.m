@@ -32,5 +32,5 @@
 
 @end
 
-MDRouterSolutionClassBind(MDTransitViewController, @"router://www.github.com/Modool/transition")
+MDRouterTargetBindViewController(MDTransitViewController, @"router://www.github.com/modool/transition")
 

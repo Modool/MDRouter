@@ -8,18 +8,36 @@
 
 #import "MDRouterAdapter.h"
 
-@class MDRouterSolutionContainer;
+@class MDRouterInvocation;
 @interface MDRouterAdapter () {
-    NSMutableArray<id<MDRouterAdapter>> *_mutableAdapters;
+    @protected
+    NSMutableArray<MDRouterAdapter *> *_adapters;
+    NSMutableArray<MDRouterInvocation *> *_invocations;
 
-    MDRouterSolutionContainer *_solutionContainer;
+    NSMutableDictionary<NSURL *, NSURL *> *_forwardURLs;
+
+    NSRecursiveLock *_lock;
 }
 
-- (BOOL)_validateURL:(NSURL *)URL;
+- (MDRouterAdapter *)_adapterWithBaseURL:(NSURL *)baseURL;
 
-- (BOOL)_handleSolutionWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
+- (BOOL)_handleInvocationWithURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;
 
 - (NSDictionary *)_argumentsWithURL:(NSURL *)URL baseArguments:(NSDictionary *)baseArguments;
+
+- (void)_addAdapter:(MDRouterAdapter *)adapter;
+- (void)_removeAdapter:(MDRouterAdapter *)adapter;
+
+- (BOOL)_containedURL:(NSURL *)URL;
+- (BOOL)_validateURL:(NSURL *)URL;
+- (BOOL)_canOpenURL:(NSURL *)URL;
+- (BOOL)_openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error queueLabel:(const char *)queueLabel;
+
+- (NSArray<MDRouterInvocation *> *)_invocationsWithURL:(NSURL *)URL;
+- (MDRouterInvocation *)_invocationWithTarget:(id)target action:(SEL)action baseURL:(NSURL *)baseURL;
+
+- (BOOL)_addInvocation:(MDRouterInvocation *)invocation;
+- (BOOL)_removeInvocation:(MDRouterInvocation *)invocation;
 
 @end

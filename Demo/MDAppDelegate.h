@@ -14,7 +14,15 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic, readonly) MDRouterSet *router;
+@property (strong, nonatomic, readonly) MDRouter *router;
+
+@end
+
+@protocol MDRouterViewControllerMethods <NSObject>
+
+MDRouterNonArgumentMethodAs(transit, - (id)transitViewController);
+//MDRouterMethodAs(transit, pushing, - (id)transitWithPushing:(BOOL)pushing animated:(BOOL)animated);
+MDRouterMethodHostAs(live, transit, pushing, - (id)transitWithPushing:(BOOL)pushing animated:(BOOL)animated);
 
 @end
 

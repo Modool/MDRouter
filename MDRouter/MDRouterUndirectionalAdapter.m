@@ -12,12 +12,6 @@
 
 #import "NSError+MDRouter.h"
 
-@interface MDRouterUndirectionalAdapter ()
-
-@property (nonatomic, copy) id (^block)(NSURL *URL, NSDictionary *arguments, NSError **error);
-
-@end
-
 @implementation MDRouterUndirectionalAdapter
 
 + (instancetype)adapterWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block {
@@ -28,20 +22,24 @@
 - (instancetype)initWithBlock:(id (^)(NSURL *URL, NSDictionary *arguments, NSError **error))block {
     NSParameterAssert(block);
     if (self = [super initWithBaseURL:nil]) {
-        self.block = block;
+        _block = [block copy];
     }
     return self;
 }
 
 #pragma mark - private
 
+- (BOOL)_containedURL:(NSURL *)URL {
+    return NO;
+}
+
 - (BOOL)_validateURL:(NSURL *)URL {
     return YES;
 }
 
 - (BOOL)_handleURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(__autoreleasing id *)output error:(NSError *__autoreleasing *)error {
-    if ([self block]) {
-        id result = self.block(URL, arguments, error);
+    if (_block) {
+        id result = _block(URL, arguments, error);
         if (output) *output = result;
         return YES;
     }
