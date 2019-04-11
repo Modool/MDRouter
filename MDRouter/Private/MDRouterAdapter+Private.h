@@ -13,8 +13,7 @@
     @protected
     NSMutableArray<MDRouterAdapter *> *_adapters;
     NSMutableArray<MDRouterInvocation *> *_invocations;
-
-    NSMutableDictionary<NSURL *, NSURL *> *_forwardURLs;
+    NSMutableDictionary<NSURL *, NSURL *> *_redirectURLs;
 
     NSRecursiveLock *_lock;
 }

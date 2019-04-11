@@ -28,7 +28,7 @@
         _baseURL = baseURL;
         _adapters = [NSMutableArray<MDRouterAdapter *> array];
         _invocations = [NSMutableArray<MDRouterInvocation *> array];
-        _forwardURLs = [NSMutableDictionary<NSURL *, NSURL *> dictionary];
+        _redirectURLs = [NSMutableDictionary<NSURL *, NSURL *> dictionary];
     }
     return self;
 }
@@ -145,18 +145,18 @@
     BOOL valid = [self _validateURL:URL baseURL:_baseURL];
     if (valid) return YES;
 
-    NSURL *toURL = _forwardURLs[URL];
+    NSURL *toURL = _redirectURLs[URL];
     if (!toURL) return NO;
 
     return [self _validateURL:URL baseURL:toURL];
 }
 
-- (NSURL *)_forwardURL:(NSURL *)URL {
-    NSDictionary<NSURL *, NSURL *> *forwardURLs= _forwardURLs.copy;
-    for (NSURL *sourceURL in forwardURLs.allKeys) {
+- (NSURL *)_redirectURL:(NSURL *)URL {
+    NSDictionary<NSURL *, NSURL *> *redirectURLs= _redirectURLs.copy;
+    for (NSURL *sourceURL in redirectURLs.allKeys) {
         if (![self _validateURL:URL baseURL:sourceURL]) continue;
 
-        return forwardURLs[sourceURL];
+        return redirectURLs[sourceURL];
     }
     return nil;
 }
@@ -206,11 +206,11 @@
 }
 
 - (NSArray<MDRouterInvocation *> *)_invocationsWithURL:(NSURL *)URL {
-    NSURL *forwardURL = [self _forwardURL:URL];
+    NSURL *redirectURL = [self _redirectURL:URL];
 
     NSMutableArray<MDRouterInvocation *> *invocations = [NSMutableArray new];
     for (MDRouterInvocation *invocation in [_invocations copy]) {
-        if ([invocation validatBaseURL:URL] || (forwardURL && [invocation validatBaseURL:forwardURL])) {
+        if ([invocation validatBaseURL:URL] || (redirectURL && [invocation validatBaseURL:redirectURL])) {
             [invocations addObject:invocation];
         }
     }
@@ -253,12 +253,12 @@
     return invocation != nil;
 }
 
-- (BOOL)_forwardURL:(NSURL *)URL toURL:(NSURL *)toURL {
+- (BOOL)_redirectURL:(NSURL *)URL toURL:(NSURL *)toURL {
     MDRouterAdapter *adapter = [self _adapterWithBaseURL:URL];
     if (adapter && [adapter _containedURL:URL]) {
-        return [adapter _forwardURL:URL toURL:toURL];
+        return [adapter _redirectURL:URL toURL:toURL];
     } else if ([self _containedURL:URL]) {
-        _forwardURLs[URL] = toURL;
+        _redirectURLs[URL] = toURL;
         return YES;
     }
     return NO;
@@ -311,17 +311,17 @@
     return success;
 }
 
-- (BOOL)forwardURL:(NSURL *)URL toURL:(NSURL *)toURL {
+- (BOOL)redirectURL:(NSURL *)URL toURL:(NSURL *)toURL {
     NSParameterAssert(URL && toURL);
     BOOL success = NO;
     [_lock lock];
-    success = [self _forwardURL:URL toURL:toURL];
+    success = [self _redirectURL:URL toURL:toURL];
     [_lock unlock];
     return success;
 }
 
-- (BOOL)forwardURLString:(NSString *)URLString toURLString:(NSString *)toURLString {
-    return [self forwardURL:[NSURL URLWithString:URLString] toURL:[NSURL URLWithString:toURLString]];
+- (BOOL)redirectURLString:(NSString *)URLString toURLString:(NSString *)toURLString {
+    return [self redirectURL:[NSURL URLWithString:URLString] toURL:[NSURL URLWithString:toURLString]];
 }
 
 - (BOOL)canOpenURL:(NSURL *)URL {

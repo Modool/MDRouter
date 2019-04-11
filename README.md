@@ -10,10 +10,10 @@
 
 - The router for transitioning or logical processing.
 - Return output for handling result and return error for exceptions.
-- Support verification for preprocessing, processing continued if return nil, or transmited the returned solution.
+- Support verification for preprocessing, processing continued if return nil, or transmited the returned solution,  see `MDRouterAccessableInvocation`.
 
 ```
-- (id<MDRouterSolution>)verifyValidWithRouterArguments:(NSDictionary *)arguments;
+- (MDRouterInvocation *)verifyValidWithRouterArguments:(NSDictionary *)arguments;
 ```
 - Support verification for optional arguments, processing interrupted if non-matched arguments.
 
@@ -32,17 +32,54 @@
 - (BOOL)openURL:(NSURL *)URL arguments:(NSDictionary *)arguments output:(id *)output error:(NSError **)error;
 ```
 
+- Support to redirect URL to another URL.
+
+```
+- (BOOL)redirectURL:(NSURL *)URL toURL:(NSURL *)toURL;
+- (BOOL)redirectURLString:(NSString *)URLString toURLString:(NSString *)toURLString;
+```
+
+- Support protocol to invoke with router.
+
+```
+- (void)addProtocol:(Protocol *)protocol;
+```
+
+- Call method of registered protocol to invoke an invocation of router, method invocation will transform to URL, arguments will transform to query item with URL encoding.
+
+```
+// Define protocol
+@protocol MDRouterSampeProtocol <NSObject>
+
+MDRouterNonArgumentMethodAs(path, - (id)doSomething);
+
+MDRouterMethodAs(path, arg1, - (id)doSomethingWithArg1:(NSDictionary *)arg1 arg2:(BOOL)arg2);
+
+MDRouterMethodHostAs(host, path, arg1, - (id)doSomethingWithArg1:(BOOL)arg1 arg2:(BOOL)arg2);
+
+@end
+
+// Call method1 of protocol, the method transform as 'invocation://path'
+id output = [(id<MDRouterSampeProtocol>)router doSomething];
+
+// Call method2 of protocol, the method transform as 'invocation://path?arg1=%7b%22key%22%3a+%22value%22%7d&arg2=1'
+id output = [(id<MDRouterSampeProtocol>)router doSomethingWithArg1:@{@"key": @"value"} arg2:YES];
+
+// Call method3 of protocol, the method transform as 'invocation://host/path?arg1=1&arg2=1'
+id output = [(id<MDRouterSampeProtocol>)router doSomethingWithArg1:YES arg2:YES];
+
+```
 - Support adapter mode, provide protocol and base class `MDRouterAdapter` to extend, easy to divide into groups for different kind of routing.
 
-- Provide solution protocol defination for any instance or class, also asynchronous solution, see `MDRouterSolution`, `MDRouterClassSolution`, `MDRouterAsynchronizeSolution`, `MDRouterAsynchronizeClassSolution`
+- Provide invocation for any instance or clas, handle logic with target-action, see `MDRouterInvocation`, handle logic with block, also asynchronous invocation, see `MDRouterBlockInvocation`, `MDRouterAsynchronizeBlockInvocation`
 
-- Provide default simple adapter and solution, handle logic with block or target-action, see `MDRouterSimpleAdapter`, `MDRouterSimpleSolution`, `MDRouterAsynchronizeSampleSolution`
+- Provide default simple adapter with block invocation, see `MDRouterSimpleAdapter`
 
 - Default adapter `MDRouterWebsiteAdapter`, to match URL which contained http / https scheme.
 
 - Default adapter `MDRouterUndirectionalAdapter` is the ultimate solution, to match the URL that never matched.
 
-- Provide default implementation for `UIViewController` transitioning, see `UIViewController+MDRouterSolution`
+- Provide default implementation for `UIViewController` transitioning, see `UIViewController+MDRouterInvocation`
 
 ## How To Get Started
 
@@ -58,7 +95,7 @@ source 'https://github.com/Modool/cocoapods-specs.git'
 platform :ios, '8.0'
 
 target 'TargetName' do
-pod 'MDRouter', '~> 1.0.0'
+pod 'MDRouter'
 end
 
 ```
@@ -66,7 +103,7 @@ end
 * Installation with Carthage
 
 ```
-github "Modool/MDRouter" ~> 1.0.0
+github "Modool/MDRouter"
 ```
 
 * Manual Import
@@ -91,24 +128,14 @@ drag “MDRouter” directory into your project
 * `MDRouterUndirectionalAdapter`
 * `MDRouterWebsiteAdapter`
 
-### Solution Protocol
-* `MDRouterSolution`
-* `MDRouterClassSolution`
-* `MDRouterAsynchronizeSolution`
+### Invocation Protocol
+* `MDRouterInvocation`
+* `MDRouterBlockInvocation`
+* `MDRouterAsynchronizeBlockInvocation`
 
-### Solution Class
-* `MDRouterSampleSolution `
-* `MDRouterAsynchronizeSampleSolution`
-* `UIViewController+MDRouterSolution`
-	
-### Private
-* `MDRouterSolutionItem `
-* `MDRouterSolutionContainer `
-
-	
 ## Usage
 
-* Demo FYI 
+* Demo FYI
 
 ## Update History
 

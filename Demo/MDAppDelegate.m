@@ -34,11 +34,11 @@
         }];
         
         [_router addAdapter:undirectionalAdapter];
-        [_router forwardURLString:@"modool/test2" toURLString:@"router://www.github.com/modool/transition"];
-        [_router forwardURLString:@"router://modool/test2" toURLString:@"router://www.github.com/modool/transition"];
-        [_router forwardURLString:@"router://www.github.com/modool/test2" toURLString:@"router://www.github.com/modool/transition"];
-//        [_router forwardURLString:@"Method://transit" toURLString:@"router://www.github.com/modool/transition"];
-        [_router forwardURLString:@"invocation://live/transit" toURLString:@"router://www.github.com/modool/transition"];
+        [_router redirectURLString:@"modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+        [_router redirectURLString:@"router://modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+        [_router redirectURLString:@"router://www.github.com/modool/test2" toURLString:@"router://www.github.com/modool/transition"];
+//        [_router redirectURLString:@"Method://transit" toURLString:@"router://www.github.com/modool/transition"];
+        [_router redirectURLString:@"invocation://live/transit" toURLString:@"router://www.github.com/modool/transition"];
 
         [_router addProtocol:@protocol(MDRouterViewControllerMethods)];
     }

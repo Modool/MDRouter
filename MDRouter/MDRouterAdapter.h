@@ -55,20 +55,20 @@
 - (BOOL)removeInvocationWithTarget:(id)target action:(SEL)action baseURL:(NSURL *)baseURL;
 
 /**
- Forward base url to another base url.
+ Redirect base url to another base url.
 
  @param URL the source url to forward.
  @param toURL the destinational url to forward.
  */
-- (BOOL)forwardURL:(NSURL *)URL toURL:(NSURL *)toURL;
+- (BOOL)redirectURL:(NSURL *)URL toURL:(NSURL *)toURL;
 
 /**
- Forward base url to another base url.
+ Redirect base url to another base url.
 
  @param URLString the source url to forward.
  @param toURLString the destinational url to forward.
  */
-- (BOOL)forwardURLString:(NSString *)URLString toURLString:(NSString *)toURLString;
+- (BOOL)redirectURLString:(NSString *)URLString toURLString:(NSString *)toURLString;
 
 /**
  To verify URL whether any adapter or invocation is matched.

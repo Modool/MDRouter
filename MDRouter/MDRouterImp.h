@@ -37,9 +37,27 @@ static NSString * const MDRouterMethodScheme = @"invocation";
 + (instancetype)routerWithBaseURL:(NSURL *)baseURL;
 + (instancetype)routerWithBaseURL:(NSURL *)baseURL queue:(dispatch_queue_t)queue;
 
+
+/**
+ Add protocol to support to invoke with method calling
+
+ @param protocol invocation protocol
+ */
 - (void)addProtocol:(Protocol *)protocol;
+
+/**
+ Remove protocol
+
+ @param protocol invocation protocol
+ */
 - (void)removeProtocol:(Protocol *)protocol;
 
+
+/**
+ Call router method in queue
+
+ @param block invoke block
+ */
 - (void)async:(void (^)(MDRouterAdapter *router))block;
 
 @end
