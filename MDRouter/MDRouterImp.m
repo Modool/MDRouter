@@ -71,7 +71,7 @@ id MDRouterBoxValue(NSInvocation *invocation, NSUInteger index);
         _queueTag = &_queueTag;
         dispatch_queue_set_specific(_queue, _queueTag, _queueTag, NULL);
 
-        [[MDRouterBinder binderWithRouter:self] load];
+        [MDRouterBinder loadWithRouter:self];
     }
     return self;
 }

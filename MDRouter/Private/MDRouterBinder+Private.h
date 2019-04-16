@@ -10,13 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MDRouterBinder () {
-    MDRouter *_router;
-}
+@interface MDRouterBinder () 
 
-+ (instancetype)binderWithRouter:(MDRouter *)router;
-
-- (void)load;
++ (void)loadWithRouter:(MDRouter *)router;
 
 @end
 

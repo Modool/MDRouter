@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    MDRouterBlockInvocation *addInvocation = [MDRouterBlockInvocation invocationWithBaseURL:[NSURL URLWithString:@"router://www.github.com/Modool/add"] block:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
+    MDRouterBlockInvocation *addInvocation = [MDRouterBlockInvocation invocationWithBaseURL:[NSURL URLWithString:@"router://www.github.com/modool/add"] block:^id(NSDictionary *arguments, NSError *__autoreleasing *error) {
         NSNumber *a = arguments[@"a"];
         NSNumber *b = arguments[@"b"];
         
@@ -27,7 +27,7 @@
     }];
     
     [[MDSharedAppDelegate router] addInvocation:addInvocation];
-//    [[MDSharedAppDelegate router] addInvocation:addInvocation baseURL:[NSURL URLWithString:@"router://www.github.com/Modool/add"] queue:dispatch_queue_create("com.modool.concurrent.queue", DISPATCH_QUEUE_SERIAL)];
+//    [[MDSharedAppDelegate router] addInvocation:addInvocation baseURL:[NSURL URLWithString:@"router://www.github.com/modool/add"] queue:dispatch_queue_create("com.modool.concurrent.queue", DISPATCH_QUEUE_SERIAL)];
 }
 
 - (void)didReceiveMemoryWarning {

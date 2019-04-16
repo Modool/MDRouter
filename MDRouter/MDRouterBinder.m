@@ -15,32 +15,25 @@
 
 @implementation MDRouterBinder
 
-+ (instancetype)binderWithRouter:(MDRouter *)router {
-    MDRouterBinder *object = [[self alloc] init];
-    object->_router = router;
-    
-    return object;
+- (void)router:(MDRouter *)router invokeTarget:(id)target action:(SEL)action baseURLString:(NSString *)baseURLString {
+    [self router:router invokeTarget:target action:action targetQueue:dispatch_get_main_queue() baseURLString:baseURLString, nil];
 }
 
-- (void)invokeTarget:(id)target action:(SEL)action baseURLString:(NSString *)baseURLString {
-    [self invokeTarget:target action:action targetQueue:dispatch_get_main_queue() baseURLString:baseURLString, nil];
-}
-
-- (void)invokeTarget:(id)target action:(SEL)action targetQueue:(dispatch_queue_t)targetQueue baseURLString:(NSString *)baseURLString, ...{
-
+- (void)router:(MDRouter *)router invokeTarget:(id)target action:(SEL)action targetQueue:(dispatch_queue_t)targetQueue baseURLString:(NSString *)baseURLString, ...{
     va_list list;
     va_start(list, baseURLString);
     while (baseURLString) {
         MDRouterInvocation *invocation = [MDRouterInvocation invocationWithBaseURL:[NSURL URLWithString:baseURLString] target:target action:action queue:targetQueue];
-
-        [_router addInvocation:invocation];
+        [router addInvocation:invocation];
 
         baseURLString = va_arg(list, NSString *);
     }
     va_end(list);
 }
 
-- (void)load {
++ (void)loadWithRouter:(MDRouter *)router {
+    MDRouterBinder *binder = [[self alloc] init];
+
     unsigned int count = 0;
     Method *methods = class_copyMethodList(self.class, &count);
 
@@ -53,8 +46,8 @@
         NSString *prefxix = MDRouterBinderClassMethodPrefixString;
         if (![methodName hasPrefix:prefxix]) continue;
 
-        void (*invoke)(id, SEL) = (void (*)(id, SEL))class_getMethodImplementation(self.class, methodSelector);
-        if (invoke) invoke(self, methodSelector);
+        void (*invoke)(id, SEL, MDRouter *) = (void (*)(id, SEL, MDRouter *))class_getMethodImplementation(self.class, methodSelector);
+        if (invoke) invoke(binder, methodSelector, router);
     }
 }
 

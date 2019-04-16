@@ -10,6 +10,7 @@
 
 #import "MDAppDelegate.h"
 
+MDRouterTargetBindViewController(MDTransitViewController, @"router://www.github.com/modool/transition")
 
 @interface MDTransitViewController ()
 
@@ -28,9 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+
+//    MDRouterBinder MDRouterBinder_bind_MDTransitViewController_invokeWithArguments_error:<#(MDRouter *)#>
 }
 
 @end
-
-MDRouterTargetBindViewController(MDTransitViewController, @"router://www.github.com/modool/transition")
-
